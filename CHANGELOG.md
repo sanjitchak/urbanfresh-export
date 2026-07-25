@@ -4,18 +4,18 @@
 
 - Repository: `sanjitchak/urbanfresh-export`, default branch `main`
 - Intended production domain: `https://urbanfreshrice.com/`
-- Site state: source-grounded launch build; DNS/HTTPS and Pages verification pending
+- Production site: `https://urbanfreshrice.com/`
+- Deployment: GitHub Pages from `main`; HTTPS enforced
 - Domestic website: `https://urbanfresh.in/`
 - Search Console property planned: `sc-domain:urbanfreshrice.com`
 
 ## Open items
 
-- Verify GitHub Pages, DNS and HTTPS for `urbanfreshrice.com`.
 - Add the Search Console domain property and grant the service account Full
   access after domain verification.
-- Add the `GSC_CREDENTIALS_JSON` repository secret only after launch approval.
-- Enable GitHub Pages and add `CNAME` only when the protected draft is approved.
-- Add reciprocal `.in`/`.com` hreflang only for genuine equivalent pages.
+- Add the existing `GSC_CREDENTIALS_JSON` credential to this repository after
+  explicit approval; the first sitemap workflow failed safely because the
+  secret is absent.
 
 ## Change history
 
@@ -28,6 +28,11 @@
   unsupported lab, port, container-load, MOQ and lead-time claims.
 - Confirmed through Verisign RDAP that `urbanfreshrice.com` was registered on
   2026-07-25 with Cloudflare nameservers.
+- Published commit `e59cade`, enabled GitHub Pages, confirmed the custom-domain
+  certificate, enforced HTTPS, and verified the live homepage, sitemap,
+  `robots.txt` and social-preview image returned HTTP 200.
+- Verified the reciprocal About-page hreflang and the domestic-site
+  International Buyers links live.
 
 ## Standard verification commands
 
