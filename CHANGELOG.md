@@ -11,13 +11,37 @@
 
 ## Open items
 
-- Add the Search Console domain property and grant the service account Full
-  access after domain verification.
-- Add the existing `GSC_CREDENTIALS_JSON` credential to this repository after
-  explicit approval; the first sitemap workflow failed safely because the
-  secret is absent.
+- Add and verify the `sc-domain:urbanfreshrice.com` Search Console property,
+  then grant `seo-improver@ricemill-search.iam.gserviceaccount.com` Full access.
+- Rerun the sitemap workflow after Google exposes the property to that service
+  account. The repository secret is already configured.
 
 ## Change history
+
+### 2026-07-25 — Hero photography and international SEO loop completed
+
+- Fixed every hero image reference to use a root-relative path. The original
+  relative path was resolving under `/assets/css/` and returning no photograph.
+- Moved the collapsed-navigation breakpoint to 1120 px so the 1070 px layout
+  shown in the owner screenshot cannot horizontally overflow or clip the hero.
+- Published commit `c4908c4`; GitHub Pages deployment `30165238813` succeeded.
+  Browser QA at 1070 px confirmed the mill photograph, complete headline,
+  hamburger navigation, zero horizontal overflow and the correct live image
+  URL.
+- Copied the existing `GSC_CREDENTIALS_JSON` GitHub secret into this repository
+  without exposing its value. Workflow `30165239202` verified that the live
+  sitemap matches the repository, then stopped safely because the service
+  account can currently see only `sc-domain:urbanfresh.in`.
+- Created the active Ubersuggest project for `urbanfreshrice.com`, tracking ten
+  export-intent keywords in the United States, United Kingdom and United Arab
+  Emirates. The first audit crawled all 11 pages with a 100 health score, zero
+  errors, zero warnings and zero recommendations.
+- Expanded the existing Codex monthly SEO automation into the active
+  `UrbanFresh Dual-Domain Monthly SEO Loop`. It runs on the first Monday of each
+  month at 10:00 Asia/Kolkata and evaluates, validates and publishes each domain
+  independently using its own Search Console property and Ubersuggest project.
+- Rebuilt the generated pages, passed the local SEO audit, all 15 unit tests and
+  `git diff --check`.
 
 ### 2026-07-25 — Source-grounded export launch build completed
 
