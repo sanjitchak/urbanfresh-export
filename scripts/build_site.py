@@ -170,7 +170,7 @@ PAGES: list[dict[str, str]] = [
   <div class="form-grid">
     <div class="field"><label for="name">Name or company *</label><input id="name" name="name" autocomplete="organization" required></div>
     <div class="field"><label for="phone">Phone / WhatsApp *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
-    <div class="field"><label for="email">Business email</label><input id="email" name="email" type="email" autocomplete="email"></div>
+    <div class="field"><label for="email">Business email *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="buyer_type">Buyer type</label><select id="buyer_type" name="buyer_type"><option value="">Select</option><option>Importer</option><option>Distributor / wholesaler</option><option>Merchant exporter</option><option>Private-label brand</option><option>Institutional buyer</option><option>Other</option></select></div>
     <div class="field"><label for="location">Destination country / port *</label><input id="location" name="location" required></div>
     <div class="field"><label for="variety">Rice variety</label><select id="variety" name="variety"><option value="">Please advise</option><option>1121 Basmati</option><option>1509 Basmati</option><option>1401 Basmati</option><option>Other basmati</option><option>Non-basmati</option></select></div>
@@ -180,6 +180,7 @@ PAGES: list[dict[str, str]] = [
     <div class="field"><label for="timeline">Target shipment window</label><input id="timeline" name="timeline" placeholder="Month or required date"></div>
     <div class="field full"><label for="message">Specification, MRL, documents and commercial notes</label><textarea id="message" name="message" placeholder="Include moisture, broken, grain length, residue limits, lab or certificate needs, Incoterm, payment terms and any sample requirement."></textarea></div>
   </div>
+  <div class="form-honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
   <p><button class="button" type="submit">Submit international RFQ</button></p>
   <div class="form-status" data-form-status tabindex="-1" aria-live="polite"></div>
 </form></div><aside class="info-panel"><h2>Mill contact</h2><p>UrbanFresh Rice Mills<br>119/6, Highway, Village Daha, Madanpur<br>Karnal 132001, Haryana, India</p><p><a href="tel:+919433569217">+91 94335 69217</a><br><a href="https://wa.me/919433569217?text=Hello%20UrbanFresh%2C%20I%20would%20like%20to%20send%20an%20international%20rice%20RFQ." target="_blank" rel="noopener">WhatsApp the buyer desk</a></p></aside></div></section>
@@ -343,7 +344,7 @@ def render(page: dict[str, str]) -> str:
   <section class="section-sm quote-band"><div class="container quote-band-inner"><div><h2>Have a complete buying brief?</h2><p>Send the rice, specification, volume, packing, destination and shipment window in one RFQ.</p></div><a class="button" href="contact.html#rfq">Send international RFQ</a></div></section>
   </main>
   {footer()}
-  <script src="assets/js/site.js?v=20260725-1" defer></script>
+  <script src="assets/js/site.js?v=20260725-2" defer></script>
 </body>
 </html>
 """

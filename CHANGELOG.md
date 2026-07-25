@@ -18,6 +18,27 @@
 
 ## Change history
 
+### 2026-07-25 — Hostinger SMTP RFQ confirmations added
+
+- Deployed a dedicated PHP endpoint at
+  `https://email.urbanfreshrice.com/submit.php` on Hostinger Business Web
+  Hosting, with the mailbox credential stored outside `public_html` and outside
+  Git.
+- Added authenticated Hostinger SMTP delivery through PHPMailer: one complete
+  lead notification goes to the UrbanFresh mailbox and one branded
+  acknowledgement goes to the buyer.
+- Restricted browser access to the UrbanFresh production origins and added
+  required-field and email validation, output escaping, a honeypot, IP-based
+  rate limiting, generic public errors and private server logging.
+- Made the buyer's business email required, connected the form to the verified
+  SMTP endpoint, and retained the existing Google Sheets write as a secondary
+  lead record.
+- Verified HTTPS and CORS, sent a labelled two-message SMTP test successfully,
+  and refreshed Hostinger's domain status to confirm MX, SPF, DKIM and DMARC
+  are all correct.
+- Rebuilt all 11 generated pages and passed the SEO audit, PHP syntax check,
+  Composer validation, all 23 unit tests and `git diff --check`.
+
 ### 2026-07-25 — WhatsApp button alignment corrected
 
 - Gave shared pill buttons an explicit 1.1 line height and supported 700 weight

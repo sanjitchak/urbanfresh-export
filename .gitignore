@@ -6,4 +6,6 @@ seo/input/current.csv
 seo/input/previous.csv
 seo/scheduler.log
 seo/scheduler-error.log
-
+server/config.php
+server/vendor/
+server/var/

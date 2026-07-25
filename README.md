@@ -21,3 +21,11 @@ python3 scripts/seo_audit.py
 python3 -m unittest discover -s tests -v
 git diff --check
 ```
+
+## RFQ email service
+
+The contact form sends authenticated owner and buyer messages through the
+private Hostinger PHP service at `email.urbanfreshrice.com`, then preserves the
+existing Google Sheets write as a secondary lead record. Deployment files and
+security notes are in [`server/README.md`](server/README.md). Never commit
+`server/config.php` or the mailbox password.

@@ -392,6 +392,14 @@ h1, h2 {
 .field textarea { min-height: 130px; resize: vertical; }
 .form-status { display: none; margin-top: 16px; padding: 14px; border-radius: 10px; }
 .form-status.show { display: block; }
+.form-honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .form-status.error { background: #fff0ef; color: #8a251e; }
 .site-footer { padding: 70px 0 28px; background: #071f18; color: #d2dfd8; }
 .footer-grid { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 42px; }

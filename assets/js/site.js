@@ -1,4 +1,5 @@
 (() => {
+  const EMAIL_ENDPOINT = 'https://email.urbanfreshrice.com/submit.php';
   const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxIdZtDFyn-_gj9eOL_12WW2hK-pon9Nbb5-fAKiMDG77aOH4AQppq-80cQ1hI0LUVh1A/exec';
   const phone = '919433569217';
   const body = document.body;
@@ -52,7 +53,7 @@
   const status = form.querySelector('[data-form-status]');
   const submitButton = form.querySelector('button[type="submit"]');
   const defaultButtonText = submitButton.textContent;
-  const requiredNames = ['name', 'phone', 'location', 'quantity'];
+  const requiredNames = ['name', 'phone', 'email', 'location', 'quantity'];
 
   const showStatus = (message, state) => {
     status.textContent = message;
@@ -71,6 +72,7 @@
       '',
       `Name or company: ${data.get('name')}`,
       `Phone: ${data.get('phone')}`,
+      `Business email: ${data.get('email')}`,
       `Destination country / port: ${data.get('location')}`,
       `Buyer type: ${data.get('buyer_type') || 'Not specified'}`,
       `Rice: ${data.get('variety') || 'Please advise'}`,
@@ -94,14 +96,14 @@
 
     if (missingInput) {
       missingInput.setAttribute('aria-invalid', 'true');
-      showStatus('Please add your name, phone number, destination and approximate quantity.', 'error');
+      showStatus('Please add your name, phone number, business email, destination and approximate quantity.', 'error');
       missingInput.focus();
       return;
     }
 
     requiredNames.forEach((name) => form.elements.namedItem(name).removeAttribute('aria-invalid'));
 
-    if (!GOOGLE_SHEETS_ENDPOINT) {
+    if (!EMAIL_ENDPOINT) {
       showStatus('The quote form is being connected. Please send this request on WhatsApp for now.', 'error');
       const fallback = document.createElement('a');
       fallback.href = whatsappUrl(data);
@@ -117,15 +119,31 @@
     data.set('source_page', window.location.href);
     const followUpUrl = whatsappUrl(data);
     submitButton.disabled = true;
-    submitButton.textContent = 'Saving your request...';
+    submitButton.textContent = 'Sending your request...';
     form.setAttribute('aria-busy', 'true');
 
     try {
-      await fetch(GOOGLE_SHEETS_ENDPOINT, {
+      const emailResponse = await fetch(EMAIL_ENDPOINT, {
         method: 'POST',
-        mode: 'no-cors',
+        headers: { Accept: 'application/json' },
         body: new URLSearchParams(data)
       });
+      const emailResult = await emailResponse.json().catch(() => null);
+
+      if (!emailResponse.ok || !emailResult || !emailResult.ok) {
+        throw new Error(emailResult && emailResult.error ? emailResult.error : 'Email confirmation failed.');
+      }
+
+      try {
+        await fetch(GOOGLE_SHEETS_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams(data)
+        });
+      } catch (sheetError) {
+        // SMTP is the primary confirmation. A temporary Sheets failure should
+        // not make the buyer resubmit and receive duplicate emails.
+      }
 
       try {
         window.sessionStorage.setItem('urbanfresh_quote_whatsapp_url', followUpUrl);
@@ -135,7 +153,7 @@
 
       window.location.assign('thank-you.html');
     } catch (error) {
-      showStatus('We could not save the request. Check your connection or send the details on WhatsApp.', 'error');
+      showStatus('We could not email your confirmation. Check your connection or send the details on WhatsApp.', 'error');
       const fallback = document.createElement('a');
       fallback.href = whatsappUrl(data);
       fallback.target = '_blank';

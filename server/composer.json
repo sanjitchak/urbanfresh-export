@@ -1,0 +1,15 @@
+{
+  "name": "urbanfresh/export-rfq-mailer",
+  "description": "Secure Hostinger SMTP endpoint for UrbanFresh international RFQs.",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "phpmailer/phpmailer": "^6.10"
+  },
+  "config": {
+    "allow-plugins": false,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
