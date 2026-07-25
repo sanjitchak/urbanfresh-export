@@ -25,6 +25,9 @@
   existing mobile bottom CTA.
 - Rebuilt all 11 pages and verified the rendered 60 px control at desktop width;
   the SEO audit, all 24 unit tests and `git diff --check` passed.
+- Published commit `511721e`; GitHub Pages deployment `30169553355` and Search
+  Console sitemap workflow `30169553856` succeeded. Live desktop QA confirmed
+  the new stylesheet, circular icon and prefilled international RFQ link.
 
 ### 2026-07-25 — RFQ owner recipient updated
 
