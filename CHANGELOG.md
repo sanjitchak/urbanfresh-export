@@ -38,6 +38,10 @@
   matrix of all 11 pages at 320, 375, 768, 1070 and 1440 px. All 55 cases had
   zero horizontal overflow, clipped visible elements, broken eager images or
   visible interaction targets below 44 by 44 px.
+- Published commit `0eaffdc`; GitHub Pages deployment `30165799066` succeeded.
+  Live checks confirmed stylesheet version `20260725-4`, the 1070 px thank-you
+  layout, 320 px homepage and product table, 1440 px specification page,
+  responsive navigation and zero horizontal overflow.
 
 ### 2026-07-25 — Hero photography and international SEO loop completed
 
