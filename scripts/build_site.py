@@ -30,7 +30,7 @@ PAGES: list[dict[str, str]] = [
         "description": "Source specification-led basmati rice from UrbanFresh Rice Mills in Karnal, India. Review mill capability, quality process and RFQ requirements.",
         "image": "mill-processing-plant.webp",
         "body": """
-<section class="hero" style="--hero-image:url('assets/images/ricefarm/mill-processing-plant.webp')">
+<section class="hero" style="--hero-image:url('/assets/images/ricefarm/mill-processing-plant.webp')">
   <div class="container hero-inner"><div class="hero-copy">
     <p class="eyebrow">Karnal, India · International buyer desk</p>
     <h1>Rice sourcing begins with a <span>written specification.</span></h1>
@@ -293,7 +293,7 @@ def page_hero(page: dict[str, str]) -> str:
     if not page.get("h1"):
         return ""
     return f"""
-<section class="page-hero" style="--page-image:url('assets/images/ricefarm/{html.escape(page["image"])}')"><div class="container">
+<section class="page-hero" style="--page-image:url('/assets/images/ricefarm/{html.escape(page["image"])}')"><div class="container">
   <div class="breadcrumbs"><a href="index.html">Home</a><span>{html.escape(page["nav"] or page["title"])}</span></div>
   <p class="eyebrow">{html.escape(page["kicker"])}</p><h1>{html.escape(page["h1"])}</h1><p>{html.escape(page["lede"])}</p>
 </div></section>"""
@@ -333,7 +333,7 @@ def render(page: dict[str, str]) -> str:
   <meta name="twitter:description" content="{html.escape(page["description"])}">
   <meta name="twitter:image" content="{DOMAIN}/assets/images/urbanfresh-export-social.png">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260725-1">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260725-2">
   <script type="application/ld+json">{json.dumps(page_schema(page), separators=(",", ":"))}</script>
 </head>
 <body>

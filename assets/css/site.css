@@ -364,7 +364,7 @@ h1, h2 {
 }
 .mobile-cta { display: none; }
 
-@media (max-width: 900px) {
+@media (max-width: 1120px) {
   .menu-toggle { display: block; }
   .main-nav {
     position: fixed;
