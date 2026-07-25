@@ -7,16 +7,35 @@
 - Production site: `https://urbanfreshrice.com/`
 - Deployment: GitHub Pages from `main`; HTTPS enforced
 - Domestic website: `https://urbanfresh.in/`
-- Search Console property planned: `sc-domain:urbanfreshrice.com`
+- Search Console property: `sc-domain:urbanfreshrice.com`, verified
 
 ## Open items
 
-- Add and verify the `sc-domain:urbanfreshrice.com` Search Console property,
-  then grant `seo-improver@ricemill-search.iam.gserviceaccount.com` Full access.
-- Rerun the sitemap workflow after Google exposes the property to that service
-  account. The repository secret is already configured.
+- Search Console is processing the newly verified property. Monitor its first
+  indexing and performance data together with the next Ubersuggest rank refresh
+  on 2026-08-01.
 
 ## Change history
+
+### 2026-07-25 — International Search Console connection completed
+
+- Verified `sc-domain:urbanfreshrice.com` in the owner's correct Google account,
+  `sanjit@growonlinetoday.com` (`/u/2`), through Cloudflare Domain Connect.
+- Granted `seo-improver@ricemill-search.iam.gserviceaccount.com` Full access to
+  the international property without exposing the copied credential.
+- Successfully completed workflow `30167153921`: it matched the live sitemap to
+  the repository, verified Search Console access and submitted
+  `https://urbanfreshrice.com/sitemap.xml`. Search Console recorded the
+  submission at `2026-07-25T17:12:15.415Z`.
+- Confirmed that the homepage is indexed and that Google accepted priority
+  indexing requests for the 1121, 1509, private-label and quality-testing
+  landing pages.
+- Reconfirmed the completed Ubersuggest audit at 100 health with all 11 pages
+  successful and no errors, warnings or recommendations. The project tracks 10
+  export-intent keywords weekly across the United States, United Kingdom and
+  United Arab Emirates; none currently rank in the top 100.
+- Confirmed the active dual-domain SEO automation remains scheduled for the
+  first Monday of every month at 10:00 Asia/Kolkata.
 
 ### 2026-07-25 — Hostinger SMTP RFQ confirmations added
 
