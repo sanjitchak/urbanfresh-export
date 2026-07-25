@@ -18,6 +18,27 @@
 
 ## Change history
 
+### 2026-07-25 — Impeccable responsive UI hardening completed
+
+- Used the owner-supplied `Skill design/impeccable-main` audit, adapt and polish
+  guidance as the quality standard for a full-site interface review.
+- Added `PRODUCT.md` so future design work keeps the international buyer,
+  specification-first purpose, factual boundaries and WCAG 2.2 AA target.
+- Fixed the 320 px homepage headline clipping and product-table overflow,
+  replaced the fragile mobile-menu offset, and rebuilt the thank-you page with
+  reusable responsive components.
+- Standardised 44 px interaction targets, keyboard focus, reduced motion,
+  mobile safe areas and zero-min-width grid behavior across the shared system.
+- Removed the detector-flagged side-stripe notice pattern and replaced the
+  generic Inter declaration with the established UrbanFresh Bitter and Source
+  Sans 3 typography system from the domestic site.
+- Added four responsive regression tests and recorded the full evidence in
+  `reports/ui-audit-2026-07-25.md`.
+- Passed the SEO audit, all 19 unit tests, `git diff --check` and a rendered
+  matrix of all 11 pages at 320, 375, 768, 1070 and 1440 px. All 55 cases had
+  zero horizontal overflow, clipped visible elements, broken eager images or
+  visible interaction targets below 44 by 44 px.
+
 ### 2026-07-25 — Hero photography and international SEO loop completed
 
 - Fixed every hero image reference to use a root-relative path. The original

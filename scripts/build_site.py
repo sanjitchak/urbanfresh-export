@@ -195,7 +195,7 @@ PAGES: list[dict[str, str]] = [
         "h1": "Thank you. Your rice brief is ready for review.",
         "lede": "Continue on WhatsApp if you need to share a specification sheet, label artwork, certificate checklist or shipment document.",
         "body": """
-<section class="section"><div class="container"><div class="card" style="max-width:720px;margin:auto;text-align:center"><h2>Keep the full buying brief together.</h2><p>Use the button below to continue the same request on WhatsApp. You can attach product specifications, artwork and document checklists there.</p><p><a class="button" data-whatsapp-follow-up href="https://wa.me/919433569217" target="_blank" rel="noopener">Continue on WhatsApp</a></p><p><a href="index.html">Return to the international site</a></p></div></div></section>
+<section class="section completion-section"><div class="container"><div class="card completion-card"><h2>Keep the full buying brief together.</h2><p>Use the button below to continue the same request on WhatsApp. You can attach product specifications, artwork and document checklists there.</p><p><a class="button" data-whatsapp-follow-up href="https://wa.me/919433569217" target="_blank" rel="noopener">Continue on WhatsApp</a></p><p><a class="completion-link" href="index.html">Return to the international site</a></p></div></div></section>
 """,
     },
 ]
@@ -313,7 +313,7 @@ def render(page: dict[str, str]) -> str:
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{html.escape(page["title"])}</title>
   <meta name="description" content="{html.escape(page["description"])}">
   <meta name="robots" content="{robots}">
@@ -333,10 +333,10 @@ def render(page: dict[str, str]) -> str:
   <meta name="twitter:description" content="{html.escape(page["description"])}">
   <meta name="twitter:image" content="{DOMAIN}/assets/images/urbanfresh-export-social.png">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260725-2">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260725-4">
   <script type="application/ld+json">{json.dumps(page_schema(page), separators=(",", ":"))}</script>
 </head>
-<body>
+<body class="{"page-thank-you" if slug == "thank-you.html" else ""}">
   <a class="skip-link" href="#main">Skip to content</a>
   {header(slug)}
   <main id="main">{page_hero(page)}{body}
