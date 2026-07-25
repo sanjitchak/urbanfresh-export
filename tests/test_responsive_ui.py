@@ -25,6 +25,8 @@ class ResponsiveUiTests(unittest.TestCase):
         self.assertIn("flex: 0 0 44px;", CSS)
         self.assertIn(":focus-visible", CSS)
         self.assertIn("@media (prefers-reduced-motion: reduce)", CSS)
+        self.assertIn("line-height: 1.1;", CSS)
+        self.assertIn(".card a:not(.button)", CSS)
 
     def test_thank_you_page_uses_responsive_completion_components(self) -> None:
         page = (ROOT / "thank-you.html").read_text(encoding="utf-8")

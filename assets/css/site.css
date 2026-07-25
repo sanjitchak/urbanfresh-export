@@ -150,7 +150,9 @@ button, input, select, textarea { font: inherit; }
   border-radius: 999px;
   background: var(--forest);
   color: var(--white) !important;
-  font-weight: 750;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
   text-decoration: none;
   transition: transform .22s var(--ease-out), background .22s var(--ease-out);
 }
@@ -283,7 +285,7 @@ h1, h2 {
 }
 .card h3 { margin: 22px 0 10px; font-size: 1.25rem; }
 .card p { margin: 0; color: var(--muted); }
-.card a { display: inline-block; margin-top: 18px; color: var(--leaf); font-weight: 750; }
+.card a:not(.button) { display: inline-block; margin-top: 18px; color: var(--leaf); font-weight: 750; }
 .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .product-card {
   overflow: hidden;

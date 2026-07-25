@@ -18,6 +18,15 @@
 
 ## Change history
 
+### 2026-07-25 — WhatsApp button alignment corrected
+
+- Gave shared pill buttons an explicit 1.1 line height and supported 700 weight
+  so Source Sans 3 is optically centred within the 50 px control.
+- Excluded `.button` elements from the generic card-link weight rule that was
+  overriding the intended CTA typography on the thank-you page.
+- Bumped the generated stylesheet URL to `20260725-5` and added regression
+  coverage for both declarations.
+
 ### 2026-07-25 — Impeccable responsive UI hardening completed
 
 - Used the owner-supplied `Skill design/impeccable-main` audit, adapt and polish
