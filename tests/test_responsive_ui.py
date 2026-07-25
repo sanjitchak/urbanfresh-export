@@ -9,6 +9,14 @@ CSS = (ROOT / "assets/css/site.css").read_text(encoding="utf-8")
 
 
 class ResponsiveUiTests(unittest.TestCase):
+    def test_desktop_whatsapp_float_is_accessible_and_mobile_safe(self) -> None:
+        generator = (ROOT / "scripts/build_site.py").read_text(encoding="utf-8")
+        self.assertIn('class="whatsapp-float"', generator)
+        self.assertIn('aria-label="Chat with the UrbanFresh international buyer desk on WhatsApp"', generator)
+        self.assertIn('<svg viewBox="0 0 24 24"', generator)
+        self.assertIn("@media (min-width: 721px)", CSS)
+        self.assertIn(".whatsapp-float { display: inline-flex; }", CSS)
+
     def test_mobile_navigation_is_anchored_to_the_sticky_header(self) -> None:
         self.assertIn("top: 100%;", CSS)
         self.assertNotIn("inset-top:", CSS)

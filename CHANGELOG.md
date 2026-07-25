@@ -17,6 +17,15 @@
 
 ## Change history
 
+### 2026-07-26 — Desktop WhatsApp floating icon added
+
+- Added an accessible circular WhatsApp icon to every international-site page,
+  linked to the existing prefilled buyer-desk chat.
+- Limited the floating control to desktop layouts so it cannot compete with the
+  existing mobile bottom CTA.
+- Rebuilt all 11 pages and verified the rendered 60 px control at desktop width;
+  the SEO audit, all 24 unit tests and `git diff --check` passed.
+
 ### 2026-07-25 — RFQ owner recipient updated
 
 - Set the permanent owner notification recipient for website RFQs to
