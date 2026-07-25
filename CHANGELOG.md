@@ -17,6 +17,16 @@
 
 ## Change history
 
+### 2026-07-25 — RFQ owner recipient updated
+
+- Set the permanent owner notification recipient for website RFQs to
+  `sanjit@growonlinetoday.com`; buyer confirmation emails remain unchanged.
+- Updated the private Hostinger production configuration while preserving the
+  SMTP sender mailbox, and verified the configured recipient without exposing
+  credentials.
+- Sent labelled production test `RFQ-RECIPIENT-VERIFY-20260725`; the endpoint
+  accepted both the owner notification and buyer confirmation.
+
 ### 2026-07-25 — International Search Console connection completed
 
 - Verified `sc-domain:urbanfreshrice.com` in the owner's correct Google account,

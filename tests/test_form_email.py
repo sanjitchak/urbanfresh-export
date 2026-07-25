@@ -35,6 +35,7 @@ class FormEmailTests(unittest.TestCase):
         self.assertIn("sendBuyerConfirmation($config, $fields, $safeLeadId);", ENDPOINT)
         self.assertIn("addReplyTo($fields['email'], $fields['name'])", ENDPOINT)
         self.assertIn("We received your rice RFQ", ENDPOINT)
+        self.assertIn("'notification_email' => 'sanjit@growonlinetoday.com'", CONFIG)
 
 
 if __name__ == "__main__":

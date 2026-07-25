@@ -14,7 +14,7 @@ return [
     ],
     'from_email' => 'noreply@urbanfreshrice.com',
     'from_name' => 'UrbanFresh Rice Mills',
-    'notification_email' => 'noreply@urbanfreshrice.com',
+    'notification_email' => 'sanjit@growonlinetoday.com',
     'notification_name' => 'UrbanFresh International Buyer Desk',
     'rate_limit_per_hour' => 6,
 ];
