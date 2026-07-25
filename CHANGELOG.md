@@ -36,6 +36,10 @@
 - Verified HTTPS and CORS, sent a labelled two-message SMTP test successfully,
   and refreshed Hostinger's domain status to confirm MX, SPF, DKIM and DMARC
   are all correct.
+- Published commit `662663c`; the live RFQ form loaded the versioned email
+  integration, completed a production browser submission and reached the
+  thank-you page. Hostinger's private rate log separately confirmed that the
+  browser request reached the PHP endpoint.
 - Rebuilt all 11 generated pages and passed the SEO audit, PHP syntax check,
   Composer validation, all 23 unit tests and `git diff --check`.
 
