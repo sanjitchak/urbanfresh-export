@@ -1,0 +1,9 @@
+.DS_Store
+.env.local
+__pycache__/
+*.pyc
+seo/input/current.csv
+seo/input/previous.csv
+seo/scheduler.log
+seo/scheduler-error.log
+

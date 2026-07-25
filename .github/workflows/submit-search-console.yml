@@ -1,0 +1,38 @@
+name: Submit sitemap to Search Console
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**.html"
+      - "sitemap.xml"
+      - "scripts/build_site.py"
+      - "scripts/submit_sitemap.py"
+      - ".github/workflows/submit-search-console.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: urbanfresh-export-search-console-submit
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out deployed source
+        uses: actions/checkout@v4
+
+      - name: Confirm Search Console credential is configured
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+        run: test -n "$GSC_CREDENTIALS_JSON"
+
+      - name: Wait for deployment and submit sitemap
+        env:
+          GSC_CREDENTIALS_JSON: ${{ secrets.GSC_CREDENTIALS_JSON }}
+        run: python3 scripts/submit_sitemap.py --wait-for-live --verify
