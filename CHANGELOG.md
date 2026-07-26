@@ -8,6 +8,12 @@
 - Deployment: GitHub Pages from `main`; HTTPS enforced
 - Domestic website: `https://urbanfresh.in/`
 - Search Console property: `sc-domain:urbanfreshrice.com`, verified
+- Discovery automation: SEO-relevant pushes wait for the live sitemap and
+  IndexNow key, submit and verify the sitemap in Search Console, then notify
+  IndexNow
+- Monitoring: weekly GitHub quality checks and a Monday 09:30 AM IST read-only
+  dual-domain monitor; the evidence-gated monthly optimizer remains active on
+  the first Monday at 10:00 AM IST
 
 ## Open items
 
@@ -53,8 +59,13 @@
   property still has no performance rows; no credential was printed or added
   to Git.
 - Rebuilt all 11 generated pages. The SEO audit, all 39 unit tests, Search
-  Console and IndexNow dry-runs, and `git diff --check` passed; live deployment
-  and the first IndexNow submission remain pending.
+  Console and IndexNow dry-runs, rendered 390/1440 px checks, and
+  `git diff --check` passed.
+- Published commit `942d3ff`. GitHub Pages run `30185522913`, weekly-quality
+  run `30185523405` and discovery run `30185523411` succeeded. The live sitemap
+  matched the repository byte-for-byte, Search Console recorded the submission
+  at `2026-07-26T03:03:15.685Z`, and IndexNow accepted all 10 canonical URLs
+  with HTTP 202.
 
 ### 2026-07-26 — Desktop WhatsApp floating icon added
 
