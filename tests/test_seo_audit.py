@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import seo_audit  # noqa: E402
+import build_site  # noqa: E402
 
 
 class ProductSnippetAuditTests(unittest.TestCase):
@@ -46,6 +47,54 @@ class ProductSnippetAuditTests(unittest.TestCase):
         }
 
         self.assertEqual(seo_audit.unsupported_product_snippets(data), [])
+
+
+class GeneratedSchemaTests(unittest.TestCase):
+    def test_page_graph_uses_stable_entity_ids_and_truthful_breadcrumbs(self) -> None:
+        page = next(
+            item for item in build_site.PAGES
+            if item["slug"] == "1121-basmati-rice.html"
+        )
+        data = build_site.page_schema(page)
+        graph = data["@graph"]
+        by_id = {
+            node["@id"]: node
+            for node in graph
+            if isinstance(node, dict) and node.get("@id")
+        }
+        page_url = build_site.page_url(page)
+
+        self.assertIn(f"{build_site.DOMAIN}/#organization", by_id)
+        self.assertIn(f"{build_site.DOMAIN}/#website", by_id)
+        self.assertIn(f"{page_url}#webpage", by_id)
+        self.assertIn(f"{page_url}#primaryimage", by_id)
+        self.assertIn(f"{page_url}#breadcrumb", by_id)
+
+        webpage = by_id[f"{page_url}#webpage"]
+        self.assertEqual(webpage["isPartOf"], {"@id": f"{build_site.DOMAIN}/#website"})
+        self.assertEqual(webpage["about"], {"@id": f"{build_site.DOMAIN}/#organization"})
+        self.assertEqual(webpage["breadcrumb"], {"@id": f"{page_url}#breadcrumb"})
+        self.assertEqual(webpage["inLanguage"], "en")
+
+        breadcrumb = by_id[f"{page_url}#breadcrumb"]
+        items = breadcrumb["itemListElement"]
+        self.assertEqual(
+            [(item["position"], item["name"], item["item"]) for item in items],
+            [
+                (1, "Home", f"{build_site.DOMAIN}/"),
+                (2, "Rice", page_url),
+            ],
+        )
+
+    def test_homepage_graph_defines_site_name_without_fake_breadcrumb(self) -> None:
+        homepage = next(item for item in build_site.PAGES if not item["slug"])
+        data = build_site.page_schema(homepage)
+        graph = data["@graph"]
+        website = next(node for node in graph if node.get("@type") == "WebSite")
+
+        self.assertEqual(website["@id"], f"{build_site.DOMAIN}/#website")
+        self.assertEqual(website["name"], "UrbanFresh International")
+        self.assertFalse(any(node.get("@type") == "BreadcrumbList" for node in graph))
 
 
 if __name__ == "__main__":

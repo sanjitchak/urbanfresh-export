@@ -51,6 +51,23 @@ REPORT_FIELDS = [
     "position_delta",
     "status",
 ]
+MARKET_FIELDS = [
+    "country",
+    "device",
+    "clicks",
+    "previous_clicks",
+    "clicks_delta",
+    "impressions",
+    "previous_impressions",
+    "impressions_delta",
+    "ctr",
+    "previous_ctr",
+    "average_position",
+    "previous_position",
+    "position_delta",
+]
+MIN_ACTION_IMPRESSIONS = 100
+MIN_CANNIBAL_IMPRESSIONS = 50
 
 
 @dataclass
@@ -61,10 +78,26 @@ class Metric:
     impressions: float = 0.0
     ctr: float = 0.0
     position: float | None = None
+    device: str = ""
+    country: str = ""
 
     @property
     def key(self) -> tuple[str, str]:
         return (self.query.casefold().strip(), self.page.strip())
+
+
+@dataclass
+class MarketMetric:
+    country: str
+    device: str
+    clicks: float = 0.0
+    impressions: float = 0.0
+    ctr: float = 0.0
+    position: float | None = None
+
+    @property
+    def key(self) -> tuple[str, str]:
+        return (self.country.casefold().strip(), self.device.casefold().strip())
 
 
 @dataclass
@@ -282,6 +315,8 @@ def query_gsc_period(token: str, site_property: str, start: dt.date, end: dt.dat
                     impressions=float(row.get("impressions", 0)),
                     ctr=float(row.get("ctr", 0)),
                     position=float(row["position"]) if row.get("position") is not None else None,
+                    device=str(keys[2]) if len(keys) > 2 else "",
+                    country=str(keys[3]) if len(keys) > 3 else "",
                 )
             )
         if len(batch) < row_limit:
@@ -328,6 +363,8 @@ def load_search_console_csv(path: Path) -> list[Metric]:
         impressions_col = column("impressions")
         ctr_col = column("ctr", "average_ctr")
         position_col = column("position", "average_position")
+        device_col = column("device")
+        country_col = column("country")
         if not query_col or not impressions_col or not position_col:
             raise RuntimeError(
                 "CSV needs Query (or Top queries), Impressions, and Position columns"
@@ -351,6 +388,8 @@ def load_search_console_csv(path: Path) -> list[Metric]:
                     impressions=impressions,
                     ctr=ctr,
                     position=parse_number(item.get(position_col)),
+                    device=str(item.get(device_col, "")).strip() if device_col else "",
+                    country=str(item.get(country_col, "")).strip() if country_col else "",
                 )
             )
     return rows
@@ -398,6 +437,93 @@ def aggregate_metrics(rows: Iterable[Metric]) -> list[Metric]:
             )
         )
     return sorted(result, key=lambda row: (-row.impressions, row.query.casefold(), row.page))
+
+
+def aggregate_market_metrics(rows: Iterable[Metric]) -> list[MarketMetric]:
+    buckets: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in rows:
+        country = row.country.strip().casefold() or "unknown"
+        device = row.device.strip().upper() or "UNKNOWN"
+        bucket = buckets.setdefault(
+            (country, device),
+            {
+                "clicks": 0.0,
+                "impressions": 0.0,
+                "position_weight": 0.0,
+                "position_impressions": 0.0,
+            },
+        )
+        bucket["clicks"] += row.clicks
+        bucket["impressions"] += row.impressions
+        if row.position is not None:
+            weight = max(row.impressions, 1.0)
+            bucket["position_weight"] += row.position * weight
+            bucket["position_impressions"] += weight
+
+    result: list[MarketMetric] = []
+    for (country, device), bucket in buckets.items():
+        impressions = float(bucket["impressions"])
+        position_impressions = float(bucket["position_impressions"])
+        result.append(
+            MarketMetric(
+                country=country,
+                device=device,
+                clicks=float(bucket["clicks"]),
+                impressions=impressions,
+                ctr=float(bucket["clicks"]) / impressions if impressions else 0.0,
+                position=(
+                    float(bucket["position_weight"]) / position_impressions
+                    if position_impressions
+                    else None
+                ),
+            )
+        )
+    return sorted(result, key=lambda row: (-row.impressions, row.country, row.device))
+
+
+def build_market_snapshot(
+    current: list[MarketMetric], previous: list[MarketMetric]
+) -> list[dict[str, Any]]:
+    current_by_key = {row.key: row for row in current}
+    previous_by_key = {row.key: row for row in previous}
+    result: list[dict[str, Any]] = []
+    for key in set(current_by_key) | set(previous_by_key):
+        now = current_by_key.get(key)
+        before = previous_by_key.get(key)
+        row = now or before
+        assert row is not None
+        position_delta = (
+            before.position - now.position
+            if now and before and now.position is not None and before.position is not None
+            else None
+        )
+        result.append(
+            {
+                "country": row.country,
+                "device": row.device,
+                "clicks": round(now.clicks, 2) if now else 0,
+                "previous_clicks": round(before.clicks, 2) if before else "",
+                "clicks_delta": round(now.clicks - before.clicks, 2) if now and before else "",
+                "impressions": round(now.impressions, 2) if now else 0,
+                "previous_impressions": round(before.impressions, 2) if before else "",
+                "impressions_delta": (
+                    round(now.impressions - before.impressions, 2) if now and before else ""
+                ),
+                "ctr": round(now.ctr, 6) if now else 0,
+                "previous_ctr": round(before.ctr, 6) if before else "",
+                "average_position": (
+                    round(now.position, 2) if now and now.position is not None else ""
+                ),
+                "previous_position": (
+                    round(before.position, 2) if before and before.position is not None else ""
+                ),
+                "position_delta": round(position_delta, 2) if position_delta is not None else "",
+            }
+        )
+    return sorted(
+        result,
+        key=lambda row: (-float(row["impressions"]), str(row["country"]), str(row["device"])),
+    )
 
 
 def tracked_keywords() -> list[str]:
@@ -484,7 +610,7 @@ def detect_opportunities(
     for row in current:
         if not row.page or row.position is None:
             continue
-        if 4 <= row.position <= 20 and row.impressions >= 5:
+        if 4 <= row.position <= 20 and row.impressions >= MIN_ACTION_IMPRESSIONS:
             opportunities.append(
                 Opportunity(
                     kind="STRIKE",
@@ -505,7 +631,7 @@ def detect_opportunities(
             )
 
         target_ctr = expected_ctr(row.position)
-        if row.impressions >= 10 and row.ctr < target_ctr:
+        if row.impressions >= MIN_ACTION_IMPRESSIONS and row.ctr < target_ctr:
             current_title, _ = html_metadata(row.page, domain)
             new_title = suggested_title(row.query)
             opportunities.append(
@@ -532,7 +658,9 @@ def detect_opportunities(
             click_loss_ratio = (
                 (prior.clicks - row.clicks) / prior.clicks if prior.clicks >= 3 else 0.0
             )
-            if position_loss >= 2 or click_loss_ratio >= 0.30:
+            if row.impressions >= MIN_ACTION_IMPRESSIONS and (
+                position_loss >= 2 or click_loss_ratio >= 0.30
+            ):
                 opportunities.append(
                     Opportunity(
                         kind="DECAY",
@@ -553,7 +681,7 @@ def detect_opportunities(
 
     by_query: defaultdict[str, list[Metric]] = defaultdict(list)
     for row in current:
-        if row.page and row.impressions >= 3:
+        if row.page and row.impressions >= MIN_CANNIBAL_IMPRESSIONS:
             by_query[row.query.casefold()].append(row)
     for rows in by_query.values():
         unique_pages = {row.page for row in rows}
@@ -679,6 +807,7 @@ def write_report(
     previous_period: tuple[dt.date, dt.date],
     current: list[Metric],
     previous: list[Metric],
+    markets: list[dict[str, Any]],
     snapshot: list[dict[str, Any]],
     opportunities: list[Opportunity],
     audit_ok: bool,
@@ -690,6 +819,10 @@ def write_report(
         writer = csv.DictWriter(handle, fieldnames=REPORT_FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(snapshot)
+    with (output_dir / "markets.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MARKET_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(markets)
 
     status_counts: defaultdict[str, int] = defaultdict(int)
     for row in snapshot:
@@ -735,6 +868,19 @@ def write_report(
             "then wait for the next comparable period before judging it."
         )
 
+    market_rows = [
+        [
+            str(row["country"]).upper(),
+            str(row["device"]),
+            str(row["impressions"]),
+            str(row["previous_impressions"] or "—"),
+            str(row["impressions_delta"] or "—"),
+            str(row["clicks"]),
+            str(row["average_position"] or "—"),
+        ]
+        for row in markets[:20]
+    ]
+
     content = f"""# UrbanFresh Export weekly SEO report — {report_date.isoformat()}
 
 ## Executive summary
@@ -750,6 +896,10 @@ def write_report(
 ## Movement since the previous period
 
 {markdown_table(['Query', 'Status', 'Position', 'Previous', 'Delta', 'Page'], movement_rows)}
+
+## Country and device visibility
+
+{markdown_table(['Country', 'Device', 'Impressions', 'Previous', 'Delta', 'Clicks', 'Position'], market_rows)}
 
 ## This week's evidence-backed opportunities
 
@@ -820,6 +970,10 @@ def main(argv: list[str] | None = None) -> int:
 
     current = aggregate_metrics(current_rows)
     previous = aggregate_metrics(previous_rows)
+    markets = build_market_snapshot(
+        aggregate_market_metrics(current_rows),
+        aggregate_market_metrics(previous_rows),
+    )
     snapshot = build_snapshot(current, previous)
     opportunities = detect_opportunities(current, previous, args.domain)
     audit_ok, audit_output = (True, "Skipped by command option") if args.skip_audit else run_audit()
@@ -832,6 +986,7 @@ def main(argv: list[str] | None = None) -> int:
         previous_period,
         current,
         previous,
+        markets,
         snapshot,
         opportunities,
         audit_ok,
@@ -839,6 +994,7 @@ def main(argv: list[str] | None = None) -> int:
         blocker,
     )
     print(f"Wrote {output_dir / 'rankings.csv'}")
+    print(f"Wrote {output_dir / 'markets.csv'}")
     print(f"Wrote {output_dir / 'report.md'}")
     return 0 if audit_ok else 1
 

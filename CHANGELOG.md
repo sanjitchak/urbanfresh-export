@@ -17,6 +17,45 @@
 
 ## Change history
 
+### 2026-07-26 — SEO generator and entity markup hardened
+
+- Replaced rebuild-wide sitemap dates with stable per-page `lastmod` values:
+  an existing date is retained when the generated HTML is unchanged and only a
+  significant rendered-page change receives the current build date.
+- Added image-sitemap entries for each page's primary photograph and additional
+  visible content photography, while keeping the noindex thank-you page out of
+  the sitemap.
+- Connected Organization, WebSite, WebPage/ItemPage and primary-image entities
+  with stable JSON-LD identifiers, and added BreadcrumbList data that matches
+  the visible two-level breadcrumb trail.
+- Removed the render-blocking Google Fonts CSS `@import` waterfall while
+  retaining the same families and weights: generated pages now preconnect to
+  the font origins and load the stylesheet directly from the document head.
+  Each page also preloads its existing primary hero WebP so the
+  CSS-background LCP candidate is discoverable before stylesheet processing.
+- Added focused regression coverage for exact sitemap/indexable-page parity,
+  real local image URLs, stable modification dates and the structured-data
+  graph, plus font and primary-image discovery. Ignored generated SEO reports
+  and the owner-supplied `Skill design/` reference folder.
+- Added a public per-domain IndexNow verification key and guarded standard-
+  library submitter. SEO-relevant deployments now wait for the live key, then
+  notify IndexNow after the authenticated Google sitemap handoff. A separate
+  weekly GitHub quality job rebuilds the site, rejects generated drift and runs
+  the full audit/test suite.
+- Preserved Search Console country and device dimensions in a separate
+  `markets.csv` report so the United States, United Kingdom, United Arab
+  Emirates, India and device results are no longer merged. Raised automatic
+  content-opportunity thresholds to 100 impressions so weak samples cannot
+  trigger page changes.
+- Copied the already approved Search Console service-account configuration into
+  the export repository's ignored `.env.local` with owner-only permissions.
+  A live read-only API run verified access and correctly reported that the new
+  property still has no performance rows; no credential was printed or added
+  to Git.
+- Rebuilt all 11 generated pages. The SEO audit, all 39 unit tests, Search
+  Console and IndexNow dry-runs, and `git diff --check` passed; live deployment
+  and the first IndexNow submission remain pending.
+
 ### 2026-07-26 — Desktop WhatsApp floating icon added
 
 - Added an accessible circular WhatsApp icon to every international-site page,

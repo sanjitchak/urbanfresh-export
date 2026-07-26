@@ -6,6 +6,8 @@ seo/input/current.csv
 seo/input/previous.csv
 seo/scheduler.log
 seo/scheduler-error.log
+reports/seo-improver/
+Skill design/
 server/config.php
 server/vendor/
 server/var/

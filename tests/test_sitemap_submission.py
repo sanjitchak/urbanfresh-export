@@ -40,6 +40,50 @@ class LaunchBuildTests(unittest.TestCase):
         self.assertTrue(locations)
         self.assertTrue(all(url.startswith("https://urbanfreshrice.com/") for url in locations))
 
+    def test_sitemap_exactly_matches_indexable_pages_and_lists_real_images(self) -> None:
+        sitemap_ns = build_site.SITEMAP_NS
+        image_ns = build_site.IMAGE_SITEMAP_NS
+        root = ET.parse(ROOT / "sitemap.xml").getroot()
+        url_nodes = root.findall(f"{{{sitemap_ns}}}url")
+        actual_locations = {
+            node.findtext(f"{{{sitemap_ns}}}loc", default="")
+            for node in url_nodes
+        }
+        expected_locations = {
+            build_site.page_url(page)
+            for page in build_site.PAGES
+            if page["slug"] != "thank-you.html"
+        }
+
+        self.assertEqual(actual_locations, expected_locations)
+        for node in url_nodes:
+            lastmod = node.findtext(f"{{{sitemap_ns}}}lastmod", default="")
+            self.assertRegex(lastmod, r"^\d{4}-\d{2}-\d{2}$")
+            image_locations = [
+                image.text or ""
+                for image in node.findall(
+                    f"{{{image_ns}}}image/{{{image_ns}}}loc"
+                )
+            ]
+            self.assertTrue(image_locations)
+            for image_url in image_locations:
+                self.assertTrue(image_url.startswith(f"{build_site.DOMAIN}/assets/images/"))
+                local_path = ROOT / image_url.removeprefix(f"{build_site.DOMAIN}/")
+                self.assertTrue(local_path.exists(), image_url)
+
+    def test_stable_lastmod_changes_only_when_rendered_html_changes(self) -> None:
+        url = "https://urbanfreshrice.com/1121-basmati-rice.html"
+        previous = {url: "2026-07-25"}
+
+        self.assertEqual(
+            build_site.stable_lastmod(url, "<html>same</html>", "<html>same</html>", previous),
+            "2026-07-25",
+        )
+        self.assertEqual(
+            build_site.stable_lastmod(url, "<html>old</html>", "<html>new</html>", previous),
+            build_site.BUILD_DATE,
+        )
+
 
 class SitemapSubmissionTests(unittest.TestCase):
     def test_wait_for_live_accepts_matching_sitemap(self) -> None:

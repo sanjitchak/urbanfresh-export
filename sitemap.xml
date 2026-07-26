@@ -1,43 +1,94 @@
 <?xml version='1.0' encoding='utf-8'?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://urbanfreshrice.com/</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-processing-plant.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-campus-office.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1121.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1509.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1401.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-quality.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/about-mill-infrastructure.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-infrastructure.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-processing-plant.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-campus-chimney.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/quality-residue-testing.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-quality.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/export-documents.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-campus-office.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/packing-container-logistics.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-processing-plant.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/private-label-rice.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1121.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/1121-basmati-rice.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1121.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/1509-basmati-rice.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1509.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/1401-basmati-rice.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/category-1401.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://urbanfreshrice.com/contact.html</loc>
     <lastmod>2026-07-26</lastmod>
+    <image:image>
+      <image:loc>https://urbanfreshrice.com/assets/images/ricefarm/mill-campus-office.webp</image:loc>
+    </image:image>
   </url>
 </urlset>

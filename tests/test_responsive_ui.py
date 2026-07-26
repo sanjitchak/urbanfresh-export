@@ -1,14 +1,42 @@
 from __future__ import annotations
 
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import build_site  # noqa: E402
+
+
 CSS = (ROOT / "assets/css/site.css").read_text(encoding="utf-8")
 
 
 class ResponsiveUiTests(unittest.TestCase):
+    def test_fonts_and_primary_hero_images_are_discovered_from_the_head(self) -> None:
+        self.assertNotIn("@import", CSS)
+        for page in build_site.PAGES:
+            rendered = build_site.render(page)
+            hero_image = build_site.primary_image_url(page)
+
+            self.assertIn(
+                '<link rel="preconnect" href="https://fonts.googleapis.com">',
+                rendered,
+            )
+            self.assertIn(
+                '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+                rendered,
+            )
+            self.assertIn("fonts.googleapis.com/css2?family=Bitter", rendered)
+            self.assertEqual(rendered.count('rel="preload" as="image"'), 1)
+            self.assertIn(
+                f'<link rel="preload" as="image" href="{hero_image}" '
+                'type="image/webp" fetchpriority="high">',
+                rendered,
+            )
+
     def test_desktop_whatsapp_float_is_accessible_and_mobile_safe(self) -> None:
         generator = (ROOT / "scripts/build_site.py").read_text(encoding="utf-8")
         self.assertIn('class="whatsapp-float"', generator)

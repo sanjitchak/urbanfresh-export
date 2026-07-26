@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 from datetime import date
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -14,6 +15,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DOMAIN = "https://urbanfreshrice.com"
 BUILD_DATE = date.today().isoformat()
 LAUNCH_READY = True
+SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
+IMAGE_SITEMAP_NS = "http://www.google.com/schemas/sitemap-image/1.1"
+BODY_IMAGE_RE = re.compile(r'<img\b[^>]*\bsrc=["\']([^"\']+)["\']', re.IGNORECASE)
+FONT_STYLESHEET = (
+    "https://fonts.googleapis.com/css2?"
+    "family=Bitter:wght@500;600;650;700"
+    "&family=Source+Sans+3:wght@400;500;600;700"
+    "&display=swap"
+)
 
 PHONE_DISPLAY = "+91 94335 69217"
 PHONE_LINK = "+919433569217"
@@ -213,9 +223,17 @@ def product_body(name: str) -> str:
 def organization_schema() -> dict[str, object]:
     return {
         "@type": "Organization",
+        "@id": f"{DOMAIN}/#organization",
         "name": "UrbanFresh Rice Mills",
         "url": f"{DOMAIN}/",
-        "logo": f"{DOMAIN}/assets/images/urbanfresh-logo.webp",
+        "logo": {
+            "@type": "ImageObject",
+            "@id": f"{DOMAIN}/#logo",
+            "url": f"{DOMAIN}/assets/images/urbanfresh-logo.webp",
+            "contentUrl": f"{DOMAIN}/assets/images/urbanfresh-logo.webp",
+            "width": 512,
+            "height": 512,
+        },
         "image": [
             f"{DOMAIN}/assets/images/ricefarm/mill-processing-plant.webp",
             f"{DOMAIN}/assets/images/ricefarm/mill-campus-office.webp",
@@ -236,26 +254,92 @@ def organization_schema() -> dict[str, object]:
     }
 
 
-def page_schema(page: dict[str, str]) -> dict[str, object]:
+def page_url(page: dict[str, str]) -> str:
     slug = page["slug"]
-    url = f"{DOMAIN}/{slug}" if slug else f"{DOMAIN}/"
+    return f"{DOMAIN}/{slug}" if slug else f"{DOMAIN}/"
+
+
+def primary_image_url(page: dict[str, str]) -> str:
+    return f"{DOMAIN}/assets/images/ricefarm/{page['image']}"
+
+
+def website_schema() -> dict[str, object]:
+    return {
+        "@type": "WebSite",
+        "@id": f"{DOMAIN}/#website",
+        "url": f"{DOMAIN}/",
+        "name": "UrbanFresh International",
+        "alternateName": "UrbanFresh Rice Mills",
+        "inLanguage": "en",
+        "publisher": {"@id": f"{DOMAIN}/#organization"},
+    }
+
+
+def breadcrumb_schema(page: dict[str, str]) -> dict[str, object] | None:
+    if not page["slug"]:
+        return None
+    url = page_url(page)
+    return {
+        "@type": "BreadcrumbList",
+        "@id": f"{url}#breadcrumb",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": f"{DOMAIN}/",
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": page["nav"] or page["title"],
+                "item": url,
+            },
+        ],
+    }
+
+
+def page_schema(page: dict[str, str]) -> dict[str, object]:
+    url = page_url(page)
+    image_url = primary_image_url(page)
     page_type = "WebPage"
     main: dict[str, object] = {
         "@type": page_type,
+        "@id": f"{url}#webpage",
         "name": page["title"],
         "url": url,
         "description": page["description"],
-        "isPartOf": {"@type": "WebSite", "name": "UrbanFresh International", "url": f"{DOMAIN}/"},
+        "isPartOf": {"@id": f"{DOMAIN}/#website"},
+        "about": {"@id": f"{DOMAIN}/#organization"},
+        "inLanguage": "en",
+        "primaryImageOfPage": {"@id": f"{url}#primaryimage"},
     }
     if page.get("product"):
         main["@type"] = "ItemPage"
         main["mainEntity"] = {
             "@type": "Thing",
+            "@id": f"{url}#rice",
             "name": page["product"],
             "description": page["lede"],
             "url": url,
         }
-    return {"@context": "https://schema.org", "@graph": [organization_schema(), main]}
+    image = {
+        "@type": "ImageObject",
+        "@id": f"{url}#primaryimage",
+        "url": image_url,
+        "contentUrl": image_url,
+    }
+    graph: list[dict[str, object]] = [
+        organization_schema(),
+        website_schema(),
+        image,
+        main,
+    ]
+    breadcrumb = breadcrumb_schema(page)
+    if breadcrumb:
+        main["breadcrumb"] = {"@id": breadcrumb["@id"]}
+        graph.append(breadcrumb)
+    return {"@context": "https://schema.org", "@graph": graph}
 
 
 def header(active: str) -> str:
@@ -304,6 +388,7 @@ def page_hero(page: dict[str, str]) -> str:
 def render(page: dict[str, str]) -> str:
     slug = page["slug"]
     canonical = f"{DOMAIN}/{slug}" if slug else f"{DOMAIN}/"
+    hero_image = primary_image_url(page)
     robots = "index,follow,max-image-preview:large" if LAUNCH_READY and slug != "thank-you.html" else "noindex,nofollow"
     body = page.get("body") or product_body(page["product"])
     alternates = ""
@@ -320,6 +405,10 @@ def render(page: dict[str, str]) -> str:
   <meta name="description" content="{html.escape(page["description"])}">
   <meta name="robots" content="{robots}">
   <link rel="canonical" href="{canonical}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{html.escape(FONT_STYLESHEET, quote=True)}">
+  <link rel="preload" as="image" href="{hero_image}" type="image/webp" fetchpriority="high">
   {alternates}
   <meta name="theme-color" content="#123c2d">
   <meta property="og:type" content="website">
@@ -351,33 +440,94 @@ def render(page: dict[str, str]) -> str:
 """
 
 
-def write_sitemap() -> None:
-    ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
-    root = ET.Element("{http://www.sitemaps.org/schemas/sitemap/0.9}urlset")
+def previous_sitemap_lastmods(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    try:
+        root = ET.parse(path).getroot()
+    except ET.ParseError:
+        return {}
+    result: dict[str, str] = {}
+    for node in root.findall(f"{{{SITEMAP_NS}}}url"):
+        loc = node.findtext(f"{{{SITEMAP_NS}}}loc", default="").strip()
+        lastmod = node.findtext(f"{{{SITEMAP_NS}}}lastmod", default="").strip()
+        if loc and lastmod:
+            result[loc] = lastmod
+    return result
+
+
+def stable_lastmod(url: str, previous_html: str | None, current_html: str, previous: dict[str, str]) -> str:
+    if previous_html == current_html and previous.get(url):
+        return previous[url]
+    return BUILD_DATE
+
+
+def sitemap_image_urls(page: dict[str, str], rendered_body: str) -> list[str]:
+    paths = [f"/assets/images/ricefarm/{page['image']}"]
+    paths.extend(BODY_IMAGE_RE.findall(rendered_body))
+    urls: list[str] = []
+    for path in paths:
+        if path.startswith("/"):
+            url = f"{DOMAIN}{path}"
+        elif path.startswith("assets/images/"):
+            url = f"{DOMAIN}/{path}"
+        else:
+            continue
+        if url not in urls:
+            urls.append(url)
+    return urls
+
+
+def write_sitemap(lastmods: dict[str, str], rendered_bodies: dict[str, str]) -> None:
+    ET.register_namespace("", SITEMAP_NS)
+    ET.register_namespace("image", IMAGE_SITEMAP_NS)
+    root = ET.Element(f"{{{SITEMAP_NS}}}urlset")
     for page in PAGES:
         if page["slug"] == "thank-you.html":
             continue
-        url = ET.SubElement(root, "{http://www.sitemaps.org/schemas/sitemap/0.9}url")
-        loc = ET.SubElement(url, "{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
-        loc.text = f"{DOMAIN}/{page['slug']}" if page["slug"] else f"{DOMAIN}/"
-        lastmod = ET.SubElement(url, "{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod")
-        lastmod.text = BUILD_DATE
+        canonical = page_url(page)
+        url = ET.SubElement(root, f"{{{SITEMAP_NS}}}url")
+        loc = ET.SubElement(url, f"{{{SITEMAP_NS}}}loc")
+        loc.text = canonical
+        lastmod = ET.SubElement(url, f"{{{SITEMAP_NS}}}lastmod")
+        lastmod.text = lastmods[canonical]
+        for image_url in sitemap_image_urls(page, rendered_bodies[canonical]):
+            image = ET.SubElement(url, f"{{{IMAGE_SITEMAP_NS}}}image")
+            image_loc = ET.SubElement(image, f"{{{IMAGE_SITEMAP_NS}}}loc")
+            image_loc.text = image_url
     tree = ET.ElementTree(root)
     ET.indent(tree, space="  ")
     tree.write(ROOT / "sitemap.xml", encoding="utf-8", xml_declaration=True)
 
 
 def main() -> None:
+    old_lastmods = previous_sitemap_lastmods(ROOT / "sitemap.xml")
+    rendered_pages: dict[str, str] = {}
+    rendered_bodies: dict[str, str] = {}
+    lastmods: dict[str, str] = {}
     for page in PAGES:
         destination = ROOT / (page["slug"] or "index.html")
-        destination.write_text(render(page), encoding="utf-8")
+        previous_html = destination.read_text(encoding="utf-8") if destination.exists() else None
+        rendered_html = render(page)
+        canonical = page_url(page)
+        rendered_pages[canonical] = rendered_html
+        rendered_bodies[canonical] = page.get("body") or product_body(page["product"])
+        lastmods[canonical] = stable_lastmod(
+            canonical,
+            previous_html,
+            rendered_html,
+            old_lastmods,
+        )
+    for page in PAGES:
+        destination = ROOT / (page["slug"] or "index.html")
+        destination.write_text(rendered_pages[page_url(page)], encoding="utf-8")
     robots = (
         f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n"
         if LAUNCH_READY
         else "User-agent: *\nDisallow: /\n"
     )
     (ROOT / "robots.txt").write_text(robots, encoding="utf-8")
-    write_sitemap()
+    write_sitemap(lastmods, rendered_bodies)
     print(f"Built {len(PAGES)} pages (launch_ready={LAUNCH_READY}).")
 
 
