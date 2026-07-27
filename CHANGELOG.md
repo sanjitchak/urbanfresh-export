@@ -37,6 +37,10 @@
   repository. Added regression coverage for schedule completeness, path
   portability and credential exclusion.
 - Existing active local and Codex schedules were preserved and not duplicated.
+- Published the privacy-safe recovery state through commit `e9c7ece`; SEO
+  quality run `30310976669` and Pages run `30310975852` succeeded. The current
+  workflow list contains no cloud report uploader, and no export report run or
+  artifact was created.
 
 ### 2026-07-26 — SEO generator and entity markup hardened
 
