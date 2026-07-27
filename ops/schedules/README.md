@@ -9,14 +9,14 @@ mirrored in both repositories so one surviving clone is sufficient.
 | Schedule | Runtime | When (Asia/Kolkata) | Recovery |
 | --- | --- | --- | --- |
 | Technical SEO quality, one per repo | GitHub Actions | Monday 09:00 | Already cloud-hosted |
-| Search Console report, one per repo | GitHub Actions | Monday 09:30 | Already cloud-hosted; reports are retained as artifacts for 90 days |
 | Two-domain report collector | macOS LaunchAgent | Monday 09:00 | Reinstall from the domestic repo |
 | Read-only two-domain monitor | Codex on the local project | Monday 09:30 | Recreate from the versioned specification |
 | Evidence-gated two-domain optimizer | Codex on the local project | First Monday 10:00 | Recreate from the versioned specification |
 
-GitHub schedules continue without the Mac. The LaunchAgent and Codex schedules
-are local services, so Git stores their definitions but a new computer still
-needs a one-time restore.
+The technical GitHub schedules continue without the Mac. The Search Console
+collector, LaunchAgent and Codex schedules are local services, so Git stores
+their definitions but a new computer still needs a one-time restore. Search
+Console report data is not uploaded to GitHub artifacts by this backup.
 
 ## Recovery on a new Mac
 
@@ -38,13 +38,11 @@ needs a one-time restore.
 5. Confirm that the restored schedule list contains the stable IDs
    `urbanfresh-weekly-seo-monitor` and `urbanfresh-monthly-seo-loop`, once each.
 
-## GitHub setup after a repository transfer
+## Private credential recovery
 
-The workflow definitions are versioned, but encrypted secrets are intentionally
-not exportable from GitHub. If either repo is transferred or recreated, add
-`GSC_CREDENTIALS_JSON` under **Settings → Secrets and variables → Actions**.
-Then manually run **Weekly Search Console report** once and download its
-artifact to verify access.
-
-The cloud reports are read-only. They do not edit pages, submit sitemaps, request
-indexing, purchase research credits, or publish SEO experiments.
+Encrypted secrets are intentionally not stored in Git. Keep the service-account
+credential in a separate password manager or encrypted backup. After restoring
+the repositories, place `GSC_CREDENTIALS_JSON` in each ignored `.env.local` and,
+if a repository was transferred or recreated, add it again under
+**Settings → Secrets and variables → Actions** for the existing authenticated
+sitemap workflow.

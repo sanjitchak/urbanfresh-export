@@ -22,22 +22,6 @@
       "workflow": ".github/workflows/seo-quality.yml"
     },
     {
-      "id": "domestic-github-gsc-report",
-      "owner": "sanjitchak/urbanfresh",
-      "runtime": "github-actions",
-      "schedule": "Monday 09:30 Asia/Kolkata",
-      "workflow": ".github/workflows/weekly-seo-report.yml",
-      "retention_days": 90
-    },
-    {
-      "id": "export-github-gsc-report",
-      "owner": "sanjitchak/urbanfresh-export",
-      "runtime": "github-actions",
-      "schedule": "Monday 09:30 Asia/Kolkata",
-      "workflow": ".github/workflows/weekly-seo-report.yml",
-      "retention_days": 90
-    },
-    {
       "id": "com.urbanfresh.seo-improver",
       "owner": "sanjitchak/urbanfresh",
       "runtime": "macos-launchagent",

@@ -32,12 +32,11 @@
   two-domain macOS LaunchAgent, current-project Codex recreation, and the
   encrypted GitHub secret that must be restored separately after a repository
   transfer.
-- Added a cloud-hosted Monday 09:30 IST Search Console report workflow. It runs
-  independently of the Mac and retains each read-only report as a GitHub
-  Actions artifact for 90 days.
-- Added regression coverage for schedule completeness, path portability,
-  credential exclusion, cloud cadence and artifact retention. Existing active
-  local and Codex schedules were preserved and not duplicated.
+- Kept the existing Monday 09:00 IST technical checks cloud-hosted while
+  excluding private Search Console report data and credentials from the
+  repository. Added regression coverage for schedule completeness, path
+  portability and credential exclusion.
+- Existing active local and Codex schedules were preserved and not duplicated.
 
 ### 2026-07-26 — SEO generator and entity markup hardened
 
