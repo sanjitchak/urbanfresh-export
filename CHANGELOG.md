@@ -23,6 +23,22 @@
 
 ## Change history
 
+### 2026-07-28 — SEO schedules backed up for hardware recovery
+
+- Added a mirrored, secret-free recovery pack that inventories every domestic
+  and international SEO schedule and preserves the exact Codex weekly-monitor
+  and monthly-optimizer specifications with portable path placeholders.
+- Documented clean-machine recovery, including the domestic repo's single
+  two-domain macOS LaunchAgent, current-project Codex recreation, and the
+  encrypted GitHub secret that must be restored separately after a repository
+  transfer.
+- Added a cloud-hosted Monday 09:30 IST Search Console report workflow. It runs
+  independently of the Mac and retains each read-only report as a GitHub
+  Actions artifact for 90 days.
+- Added regression coverage for schedule completeness, path portability,
+  credential exclusion, cloud cadence and artifact retention. Existing active
+  local and Codex schedules were preserved and not duplicated.
+
 ### 2026-07-26 — SEO generator and entity markup hardened
 
 - Replaced rebuild-wide sitemap dates with stable per-page `lastmod` values:

@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "updated": "2026-07-28",
+  "timezone": "Asia/Kolkata",
+  "mirror_repositories": [
+    "sanjitchak/urbanfresh",
+    "sanjitchak/urbanfresh-export"
+  ],
+  "schedules": [
+    {
+      "id": "domestic-github-quality",
+      "owner": "sanjitchak/urbanfresh",
+      "runtime": "github-actions",
+      "schedule": "Monday 09:00 Asia/Kolkata",
+      "workflow": ".github/workflows/seo-quality.yml"
+    },
+    {
+      "id": "export-github-quality",
+      "owner": "sanjitchak/urbanfresh-export",
+      "runtime": "github-actions",
+      "schedule": "Monday 09:00 Asia/Kolkata",
+      "workflow": ".github/workflows/seo-quality.yml"
+    },
+    {
+      "id": "domestic-github-gsc-report",
+      "owner": "sanjitchak/urbanfresh",
+      "runtime": "github-actions",
+      "schedule": "Monday 09:30 Asia/Kolkata",
+      "workflow": ".github/workflows/weekly-seo-report.yml",
+      "retention_days": 90
+    },
+    {
+      "id": "export-github-gsc-report",
+      "owner": "sanjitchak/urbanfresh-export",
+      "runtime": "github-actions",
+      "schedule": "Monday 09:30 Asia/Kolkata",
+      "workflow": ".github/workflows/weekly-seo-report.yml",
+      "retention_days": 90
+    },
+    {
+      "id": "com.urbanfresh.seo-improver",
+      "owner": "sanjitchak/urbanfresh",
+      "runtime": "macos-launchagent",
+      "schedule": "Monday 09:00 local time",
+      "restore_command": "./scripts/install_local_seo_schedule.sh",
+      "covers": [
+        "urbanfresh.in",
+        "urbanfreshrice.com"
+      ]
+    },
+    {
+      "id": "urbanfresh-weekly-seo-monitor",
+      "runtime": "codex-local-automation",
+      "schedule": "Monday 09:30 local time",
+      "specification": "ops/schedules/codex-weekly-monitor.md"
+    },
+    {
+      "id": "urbanfresh-monthly-seo-loop",
+      "runtime": "codex-local-automation",
+      "schedule": "First Monday 10:00 local time",
+      "specification": "ops/schedules/codex-monthly-optimizer.md"
+    }
+  ]
+}
