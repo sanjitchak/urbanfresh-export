@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'allowed_origins' => [
-        'https://urbanfreshrice.com',
-        'https://www.urbanfreshrice.com',
-    ],
     'smtp' => [
         'host' => 'smtp.hostinger.com',
         'port' => 587,
@@ -15,6 +11,6 @@ return [
     'from_email' => 'noreply@urbanfreshrice.com',
     'from_name' => 'UrbanFresh Rice Mills',
     'notification_email' => 'sanjit@growonlinetoday.com',
-    'notification_name' => 'UrbanFresh International Buyer Desk',
+    'notification_name' => 'UrbanFresh Buyer Desk',
     'rate_limit_per_hour' => 6,
 ];

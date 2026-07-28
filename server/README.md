@@ -1,7 +1,7 @@
-# UrbanFresh RFQ mailer
+# UrbanFresh shared RFQ mailer
 
-This PHP endpoint sends two authenticated messages for every valid international
-RFQ:
+This PHP endpoint sends two authenticated messages for every valid domestic or
+international RFQ:
 
 1. A complete lead notification to the UrbanFresh buyer desk.
 2. A confirmation containing the submitted brief to the buyer.
@@ -38,7 +38,11 @@ The production endpoint is:
 https://email.urbanfreshrice.com/submit.php
 ```
 
-Only `https://urbanfreshrice.com` and `https://www.urbanfreshrice.com` may call
-it from a browser. The endpoint validates required fields and the buyer email,
-uses a honeypot, rate-limits by IP, escapes buyer content in both messages, and
-does not expose SMTP errors in its response.
+Only the HTTPS production origins for `urbanfresh.in` and
+`urbanfreshrice.com`, including their redirecting `www` hosts, may call it from
+a browser. This fixed allowlist lives in `public_html/submit.php`, so the
+private SMTP configuration does not need to be touched when deploying the
+shared endpoint. The endpoint chooses domestic or international wording from
+that validated origin. It validates required fields and the buyer email, uses a
+honeypot, rate-limits by IP, escapes buyer content in both messages, and does
+not expose SMTP errors in its response.

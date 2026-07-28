@@ -1,6 +1,6 @@
 {
   "name": "urbanfresh/export-rfq-mailer",
-  "description": "Secure Hostinger SMTP endpoint for UrbanFresh international RFQs.",
+  "description": "Secure shared Hostinger SMTP endpoint for UrbanFresh website RFQs.",
   "license": "proprietary",
   "type": "project",
   "require": {

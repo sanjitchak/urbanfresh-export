@@ -27,11 +27,10 @@ $config = require $configFile;
 require $autoloadFile;
 
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? trim((string) $_SERVER['HTTP_ORIGIN']) : '';
-$allowedOrigins = isset($config['allowed_origins']) && is_array($config['allowed_origins'])
-    ? $config['allowed_origins']
-    : [];
+$site = siteProfile($origin);
+$originAllowed = $site !== null;
 
-if ($origin !== '' && in_array($origin, $allowedOrigins, true)) {
+if ($originAllowed) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Vary: Origin');
     header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -40,7 +39,7 @@ if ($origin !== '' && in_array($origin, $allowedOrigins, true)) {
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
-    if ($origin === '' || !in_array($origin, $allowedOrigins, true)) {
+    if (!$originAllowed) {
         respond(403, ['ok' => false, 'error' => 'Origin is not allowed.']);
     }
     respond(204, []);
@@ -51,7 +50,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     respond(405, ['ok' => false, 'error' => 'Method not allowed.']);
 }
 
-if ($origin === '' || !in_array($origin, $allowedOrigins, true)) {
+if (!$originAllowed) {
     respond(403, ['ok' => false, 'error' => 'Origin is not allowed.']);
 }
 
@@ -95,8 +94,8 @@ $leadId = $fields['lead_id'] !== '' ? $fields['lead_id'] : bin2hex(random_bytes(
 $safeLeadId = preg_replace('/[^a-zA-Z0-9_-]/', '', $leadId) ?: bin2hex(random_bytes(16));
 
 try {
-    sendOwnerNotification($config, $fields, $safeLeadId);
-    sendBuyerConfirmation($config, $fields, $safeLeadId);
+    sendOwnerNotification($config, $fields, $safeLeadId, $site);
+    sendBuyerConfirmation($config, $fields, $safeLeadId, $site);
     respond(200, ['ok' => true, 'lead_id' => $safeLeadId]);
 } catch (Throwable $error) {
     error_log(sprintf(
@@ -174,31 +173,66 @@ function rateLimit(string $varDirectory, string $address, int $maximum): bool
 }
 
 /**
+ * @return array<string, string>|null
+ */
+function siteProfile(string $origin): ?array
+{
+    if (in_array($origin, ['https://urbanfresh.in', 'https://www.urbanfresh.in'], true)) {
+        return [
+            'site' => 'urbanfresh.in',
+            'owner_subject' => 'New domestic rice quote request',
+            'owner_heading' => 'New domestic rice quote request',
+            'buyer_intro' => 'Thank you for sending your bulk rice quote request to UrbanFresh Rice Mills. Our buyer desk will review the product, quantity, packing, delivery location and timeline you provided.',
+            'location_label' => 'Delivery city or country',
+            'notes_label' => 'Other requirements',
+            'desk_label' => 'Buyer desk',
+        ];
+    }
+
+    if (in_array($origin, ['https://urbanfreshrice.com', 'https://www.urbanfreshrice.com'], true)) {
+        return [
+            'site' => 'urbanfreshrice.com',
+            'owner_subject' => 'New international rice RFQ',
+            'owner_heading' => 'New international rice RFQ',
+            'buyer_intro' => 'Thank you for sending your international rice requirement to UrbanFresh Rice Mills. Our buyer desk will review the product, quality, packing, destination and shipment details you provided.',
+            'location_label' => 'Destination country / port',
+            'notes_label' => 'Specification and notes',
+            'desk_label' => 'International buyer desk',
+        ];
+    }
+
+    return null;
+}
+
+/**
  * @param array<string, mixed> $config
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function sendOwnerNotification(array $config, array $fields, string $leadId): void
+function sendOwnerNotification(array $config, array $fields, string $leadId, array $site): void
 {
     $mail = configuredMailer($config);
     $mail->addAddress((string) $config['notification_email'], (string) $config['notification_name']);
     $mail->addReplyTo($fields['email'], $fields['name']);
-    $mail->Subject = 'New international rice RFQ — ' . subjectText($fields['name']);
+    $mail->Subject = $site['owner_subject'] . ' — ' . subjectText($fields['name']);
     $mail->isHTML(true);
     $mail->Body = emailShell(
-        'New international rice RFQ',
-        '<p>A buyer submitted a structured request through urbanfreshrice.com.</p>' .
-        detailsTable($fields, $leadId) .
-        '<p style="margin:24px 0 0"><strong>Reply directly to this email</strong> to contact the buyer.</p>'
+        $site['owner_heading'],
+        '<p>A buyer submitted a structured request through ' . escapeHtml($site['site']) . '.</p>' .
+        detailsTable($fields, $leadId, $site) .
+        '<p style="margin:24px 0 0"><strong>Reply directly to this email</strong> to contact the buyer.</p>',
+        $site
     );
-    $mail->AltBody = ownerPlainText($fields, $leadId);
+    $mail->AltBody = ownerPlainText($fields, $leadId, $site);
     $mail->send();
 }
 
 /**
  * @param array<string, mixed> $config
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function sendBuyerConfirmation(array $config, array $fields, string $leadId): void
+function sendBuyerConfirmation(array $config, array $fields, string $leadId, array $site): void
 {
     $mail = configuredMailer($config);
     $mail->addAddress($fields['email'], $fields['name']);
@@ -208,12 +242,13 @@ function sendBuyerConfirmation(array $config, array $fields, string $leadId): vo
     $mail->Body = emailShell(
         'Your rice request has been received',
         '<p>Hello ' . escapeHtml($fields['name']) . ',</p>' .
-        '<p>Thank you for sending your international rice requirement to UrbanFresh Rice Mills. Our buyer desk will review the product, quality, packing, destination and shipment details you provided.</p>' .
+        '<p>' . escapeHtml($site['buyer_intro']) . '</p>' .
         '<p>This confirmation records your request; commercial feasibility, specification acceptance and terms remain subject to written review.</p>' .
-        detailsTable($fields, $leadId) .
-        '<p style="margin:24px 0 0">To add a specification sheet, label artwork or document checklist, reply to this email or continue on WhatsApp at <a href="https://wa.me/919433569217" style="color:#1f6b4f">+91 94335 69217</a>.</p>'
+        detailsTable($fields, $leadId, $site) .
+        '<p style="margin:24px 0 0">To add documents or more details, reply to this email or continue on WhatsApp at <a href="https://wa.me/919433569217" style="color:#1f6b4f">+91 94335 69217</a>.</p>',
+        $site
     );
-    $mail->AltBody = buyerPlainText($fields, $leadId);
+    $mail->AltBody = buyerPlainText($fields, $leadId, $site);
     $mail->send();
 }
 
@@ -239,21 +274,22 @@ function configuredMailer(array $config): PHPMailer
 
 /**
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function detailsTable(array $fields, string $leadId): string
+function detailsTable(array $fields, string $leadId, array $site): string
 {
     $rows = [
         'Name or company' => $fields['name'],
         'Phone / WhatsApp' => $fields['phone'],
         'Business email' => $fields['email'],
-        'Destination country / port' => $fields['location'],
+        $site['location_label'] => $fields['location'],
         'Buyer type' => fallback($fields['buyer_type']),
         'Rice variety' => fallback($fields['variety'], 'Please advise'),
         'Processing' => fallback($fields['processing'], 'Please advise'),
         'Approximate quantity' => $fields['quantity'],
         'Packing brief' => fallback($fields['packaging'], 'Please advise'),
         'Target shipment window' => fallback($fields['timeline']),
-        'Specification and notes' => fallback($fields['message'], 'None supplied'),
+        $site['notes_label'] => fallback($fields['message'], 'None supplied'),
         'Source page' => fallback($fields['source_page']),
         'Reference' => $leadId,
     ];
@@ -269,7 +305,10 @@ function detailsTable(array $fields, string $leadId): string
     return $html . '</table>';
 }
 
-function emailShell(string $heading, string $content): string
+/**
+ * @param array<string, string> $site
+ */
+function emailShell(string $heading, string $content, array $site): string
 {
     return '<!doctype html><html><body style="margin:0;background:#f4f0e6;font-family:Arial,sans-serif;color:#27342f">' .
         '<div style="max-width:680px;margin:0 auto;padding:28px 14px">' .
@@ -278,49 +317,52 @@ function emailShell(string $heading, string $content): string
         '<h1 style="margin:0;font-size:26px;line-height:1.25">' . escapeHtml($heading) . '</h1></div>' .
         '<div style="background:#fff;padding:28px;border:1px solid #dce6df;border-top:0;border-radius:0 0 14px 14px;line-height:1.6">' .
         $content .
-        '<p style="margin:28px 0 0;color:#65736d;font-size:13px">UrbanFresh Rice Mills · Karnal, Haryana, India<br>International buyer desk: +91 94335 69217</p>' .
+        '<p style="margin:28px 0 0;color:#65736d;font-size:13px">UrbanFresh Rice Mills · Karnal, Haryana, India<br>' .
+        escapeHtml($site['desk_label']) . ': +91 94335 69217</p>' .
         '</div></div></body></html>';
 }
 
 /**
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function ownerPlainText(array $fields, string $leadId): string
+function ownerPlainText(array $fields, string $leadId, array $site): string
 {
-    return "New international rice RFQ\n\n" . plainDetails($fields, $leadId) .
+    return $site['owner_heading'] . "\n\n" . plainDetails($fields, $leadId, $site) .
         "\nReply directly to this message to contact the buyer.";
 }
 
 /**
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function buyerPlainText(array $fields, string $leadId): string
+function buyerPlainText(array $fields, string $leadId, array $site): string
 {
     return "Hello {$fields['name']},\n\n" .
-        "Thank you for sending your international rice requirement to UrbanFresh Rice Mills. " .
-        "Our buyer desk will review the product, quality, packing, destination and shipment details you provided.\n\n" .
+        $site['buyer_intro'] . "\n\n" .
         "This confirmation records your request; commercial feasibility, specification acceptance and terms remain subject to written review.\n\n" .
-        plainDetails($fields, $leadId) .
+        plainDetails($fields, $leadId, $site) .
         "\nTo add documents, reply to this email or WhatsApp +91 94335 69217.";
 }
 
 /**
  * @param array<string, string> $fields
+ * @param array<string, string> $site
  */
-function plainDetails(array $fields, string $leadId): string
+function plainDetails(array $fields, string $leadId, array $site): string
 {
     return implode("\n", [
         'Name or company: ' . $fields['name'],
         'Phone / WhatsApp: ' . $fields['phone'],
         'Business email: ' . $fields['email'],
-        'Destination country / port: ' . $fields['location'],
+        $site['location_label'] . ': ' . $fields['location'],
         'Buyer type: ' . fallback($fields['buyer_type']),
         'Rice variety: ' . fallback($fields['variety'], 'Please advise'),
         'Processing: ' . fallback($fields['processing'], 'Please advise'),
         'Approximate quantity: ' . $fields['quantity'],
         'Packing brief: ' . fallback($fields['packaging'], 'Please advise'),
         'Target shipment window: ' . fallback($fields['timeline']),
-        'Specification and notes: ' . fallback($fields['message'], 'None supplied'),
+        $site['notes_label'] . ': ' . fallback($fields['message'], 'None supplied'),
         'Reference: ' . $leadId,
     ]) . "\n";
 }

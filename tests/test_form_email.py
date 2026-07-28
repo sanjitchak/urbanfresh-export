@@ -29,13 +29,23 @@ class FormEmailTests(unittest.TestCase):
         self.assertIn("require $configFile", ENDPOINT)
         self.assertNotIn("REPLACE_WITH_HOSTINGER_MAILBOX_PASSWORD", ENDPOINT)
         self.assertIn("REPLACE_WITH_HOSTINGER_MAILBOX_PASSWORD", CONFIG)
+        self.assertIn("function siteProfile(string $origin): ?array", ENDPOINT)
+        self.assertIn("'site' => 'urbanfresh.in'", ENDPOINT)
+        self.assertIn("'site' => 'urbanfreshrice.com'", ENDPOINT)
+        self.assertIn("$originAllowed = $site !== null;", ENDPOINT)
 
     def test_endpoint_sends_owner_and_buyer_messages(self) -> None:
-        self.assertIn("sendOwnerNotification($config, $fields, $safeLeadId);", ENDPOINT)
-        self.assertIn("sendBuyerConfirmation($config, $fields, $safeLeadId);", ENDPOINT)
+        self.assertIn("sendOwnerNotification($config, $fields, $safeLeadId, $site);", ENDPOINT)
+        self.assertIn("sendBuyerConfirmation($config, $fields, $safeLeadId, $site);", ENDPOINT)
         self.assertIn("addReplyTo($fields['email'], $fields['name'])", ENDPOINT)
         self.assertIn("We received your rice RFQ", ENDPOINT)
         self.assertIn("'notification_email' => 'sanjit@growonlinetoday.com'", CONFIG)
+
+    def test_endpoint_uses_origin_specific_email_wording(self) -> None:
+        self.assertIn("'owner_subject' => 'New domestic rice quote request'", ENDPOINT)
+        self.assertIn("'owner_subject' => 'New international rice RFQ'", ENDPOINT)
+        self.assertIn("'location_label' => 'Delivery city or country'", ENDPOINT)
+        self.assertIn("'location_label' => 'Destination country / port'", ENDPOINT)
 
 
 if __name__ == "__main__":

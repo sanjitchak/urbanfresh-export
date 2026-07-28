@@ -23,6 +23,19 @@
 
 ## Change history
 
+### 2026-07-29 — Shared SMTP mailer extended to the domestic website
+
+- Extended the existing Hostinger PHP endpoint's fixed allowlist to accept the
+  validated HTTPS origins for both `urbanfresh.in` and
+  `urbanfreshrice.com`, without changing the private SMTP configuration.
+- Added origin-specific domestic and international owner subjects, buyer
+  wording, field labels and footer labels while preserving the same SMTP
+  credential, owner recipient, buyer confirmation, validation, honeypot,
+  rate-limit and escaping controls.
+- Updated the public configuration template, deployment documentation and
+  regression coverage. No SMTP password or private production configuration was
+  added to Git.
+
 ### 2026-07-28 — SEO schedules backed up for hardware recovery
 
 - Added a mirrored, secret-free recovery pack that inventories every domestic
