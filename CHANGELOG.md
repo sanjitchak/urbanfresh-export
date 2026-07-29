@@ -33,6 +33,9 @@
   guard remains enforced if structured data changes later.
 - Rebuilt all 11 pages; the SEO audit, PHP syntax, Composer validation, all 44
   tests, dry-run sitemap and IndexNow checks, and `git diff --check` passed.
+- Published commit `408898c`; Pages run `30447676986` and SEO quality run
+  `30447678829` succeeded. The generated and live export pages remain free of
+  Dataset claims, so no new license or commercial-use statement was published.
 
 ### 2026-07-29 — Shared SMTP mailer extended to the domestic website
 
