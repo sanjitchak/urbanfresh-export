@@ -49,6 +49,28 @@ class ProductSnippetAuditTests(unittest.TestCase):
         self.assertEqual(seo_audit.unsupported_product_snippets(data), [])
 
 
+class DatasetAuditTests(unittest.TestCase):
+    def test_dataset_without_license_is_rejected(self) -> None:
+        data = {
+            "@type": "Dataset",
+            "name": "Example export dataset",
+            "description": "An example dataset without stated use terms.",
+        }
+
+        self.assertEqual(
+            seo_audit.datasets_missing_license(data),
+            ["Example export dataset"],
+        )
+
+    def test_every_generated_page_has_no_unlicensed_dataset(self) -> None:
+        for page in build_site.PAGES:
+            self.assertEqual(
+                seo_audit.datasets_missing_license(build_site.page_schema(page)),
+                [],
+                page["slug"] or "index.html",
+            )
+
+
 class GeneratedSchemaTests(unittest.TestCase):
     def test_page_graph_uses_stable_entity_ids_and_truthful_breadcrumbs(self) -> None:
         page = next(

@@ -112,6 +112,19 @@ def unsupported_product_snippets(data: object) -> list[str]:
     return unsupported
 
 
+def datasets_missing_license(data: object) -> list[str]:
+    missing: list[str] = []
+    for node in json_objects(data):
+        node_type = node.get("@type")
+        types = node_type if isinstance(node_type, list) else [node_type]
+        if "Dataset" not in types:
+            continue
+        if node.get("license"):
+            continue
+        missing.append(str(node.get("name", "unnamed Dataset")))
+    return missing
+
+
 def audit() -> int:
     pages = sorted(ROOT.glob("*.html"))
     errors: list[str] = []
@@ -159,6 +172,12 @@ def audit() -> int:
                     errors.append(
                         f"{label}: Product markup lacks offers, review or aggregateRating: "
                         f"{', '.join(unsupported)}"
+                    )
+                unlicensed_datasets = datasets_missing_license(structured_data)
+                if unlicensed_datasets:
+                    errors.append(
+                        f"{label}: Dataset markup lacks license: "
+                        f"{', '.join(unlicensed_datasets)}"
                     )
             except json.JSONDecodeError as exc:
                 errors.append(f"{label}: invalid JSON-LD ({exc.msg})")

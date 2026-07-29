@@ -23,6 +23,17 @@
 
 ## Change history
 
+### 2026-07-29 — Dataset license guard mirrored from the domestic site
+
+- Confirmed the international generator does not currently publish any
+  `Dataset` entity, so no unsupported dataset or license claim was added.
+- Extended the export SEO audit to reject any future Dataset structured data
+  that omits an explicit license.
+- Added regression coverage across every generated export-page graph so the
+  guard remains enforced if structured data changes later.
+- Rebuilt all 11 pages; the SEO audit, PHP syntax, Composer validation, all 44
+  tests, dry-run sitemap and IndexNow checks, and `git diff --check` passed.
+
 ### 2026-07-29 — Shared SMTP mailer extended to the domestic website
 
 - Extended the existing Hostinger PHP endpoint's fixed allowlist to accept the
