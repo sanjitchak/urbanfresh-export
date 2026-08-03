@@ -17,11 +17,33 @@
 
 ## Open items
 
-- Search Console is processing the newly verified property. Monitor its first
-  indexing and performance data together with the next Ubersuggest rank refresh
-  on 2026-08-01.
+- Search Console has started reporting impressions, but the sample is only
+  three United States desktop impressions with no comparable prior-period rows.
+  Wait for a full comparable 28-day period before changing content.
 
 ## Change history
+
+### 2026-08-03 — Monthly SEO review held for insufficient evidence
+
+- Google Search Console's complete 2026-07-04 to 2026-07-31 period contained
+  three impressions and no clicks, all United States desktop at average
+  position 87. United Kingdom, United Arab Emirates, India and all other
+  country/device combinations had no rows; the preceding 28-day comparison
+  also had no rows.
+- The exact `urbanfreshrice.com` Ubersuggest project estimated
+  `private label rice manufacturer` at desktop positions 78 in the United
+  States and 72 in both the United Kingdom and United Arab Emirates, plus
+  `basmati rice residue testing` at 63 in the United Arab Emirates. The audit
+  remained 100/100 across 11 successful pages. These estimates were kept
+  separate from Search Console and mobile was not merged because mobile rank
+  tracking is disabled in the project.
+- Recorded one `No change - insufficient evidence` row in
+  `seo/monthly-log.csv`. No page content, claim, URL, navigation, form, sitemap
+  or IndexNow file changed, so no discovery resubmission is warranted. Reviewed
+  production deployment `a069b2820dbdaac2e90ada21b4f89a30b77484d0`.
+- Rebuilt the 11-page site and passed the SEO audit, all 44 tests and
+  `git diff --check`. Continue collecting data until a full comparable period
+  and meaningful market/page/query sample exist.
 
 ### 2026-07-29 — Dataset license guard mirrored from the domestic site
 
