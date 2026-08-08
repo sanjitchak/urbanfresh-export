@@ -15,6 +15,21 @@ CSS = (ROOT / "assets/css/site.css").read_text(encoding="utf-8")
 
 
 class ResponsiveUiTests(unittest.TestCase):
+    def test_internal_home_links_use_the_canonical_root(self) -> None:
+        for page in build_site.PAGES:
+            rendered = build_site.render(page)
+            self.assertNotIn('href="index.html"', rendered, page["slug"] or "homepage")
+
+        homepage = build_site.render(build_site.PAGES[0])
+        self.assertIn(
+            '<a href="export-documents.html">Review the document checklist</a>',
+            homepage,
+        )
+        self.assertIn(
+            '<a href="packing-container-logistics.html">Plan packing and container inputs</a>',
+            homepage,
+        )
+
     def test_fonts_and_primary_hero_images_are_discovered_from_the_head(self) -> None:
         self.assertNotIn("@import", CSS)
         for page in build_site.PAGES:

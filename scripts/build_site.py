@@ -56,7 +56,7 @@ PAGES: list[dict[str, str]] = [
   <p><a class="button button-outline" href="about-mill-infrastructure.html">See the mill</a></p></div>
 </div></section>
 <section class="section surface"><div class="container"><div class="section-head"><div><p class="eyebrow" style="color:var(--leaf)">The sourcing path</p><h2 class="section-title">From buyer brief to an order-ready offer.</h2></div><p class="section-lede">Each step exists to reduce ambiguity before production, testing, packing and shipment commitments are made.</p></div>
-<div class="card-grid"><article class="card"><span class="number">01</span><h3>Define the rice</h3><p>Variety, processing style, crop, grain length, moisture, broken tolerance, packing and volume.</p><a href="1121-basmati-rice.html">See a specification page</a></article><article class="card"><span class="number">02</span><h3>Match the destination</h3><p>Share destination rules, residue limits, required documents, lab expectations and labelling constraints.</p><a href="quality-residue-testing.html">Review quality questions</a></article><article class="card"><span class="number">03</span><h3>Confirm the offer</h3><p>Accept the current sample, specification, evidence, commercial terms and shipment plan in writing.</p><a href="contact.html#rfq">Start an RFQ</a></article></div>
+<div class="card-grid"><article class="card"><span class="number">01</span><h3>Define the rice</h3><p>Variety, processing style, crop, grain length, moisture, broken tolerance, packing and volume.</p><a href="1121-basmati-rice.html">See a specification page</a></article><article class="card"><span class="number">02</span><h3>Match the destination</h3><p>Share destination rules, residue limits, required documents, lab expectations and labelling constraints.</p><a href="quality-residue-testing.html">Review quality questions</a></article><article class="card"><span class="number">03</span><h3>Plan the transaction</h3><p>Agree the document responsibilities, packing inputs and shipment plan before the final offer.</p><a href="export-documents.html">Review the document checklist</a><br><a href="packing-container-logistics.html">Plan packing and container inputs</a></article></div>
 </div></section>
 <section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow" style="color:var(--leaf)">Initial export range</p><h2 class="section-title">Three basmati specification starting points.</h2></div><p class="section-lede">These pages do not publish a universal specification. They show the fields that must be confirmed for the offered crop and lot.</p></div>
 <div class="product-grid"><article class="product-card"><img src="assets/images/ricefarm/category-1121.webp" alt="1121 Basmati rice grains from the UrbanFresh range" width="900" height="620"><div><small>Long-grain basmati</small><h3>1121 Basmati Rice</h3><p>Raw, steam, sella and golden sella enquiries.</p><a href="1121-basmati-rice.html">Build the 1121 brief</a></div></article><article class="product-card"><img src="assets/images/ricefarm/category-1509.webp" alt="1509 Basmati rice grains from the UrbanFresh range" width="900" height="620"><div><small>Early-maturing basmati</small><h3>1509 Basmati Rice</h3><p>Compare processing and lot-specific quality fields.</p><a href="1509-basmati-rice.html">Build the 1509 brief</a></div></article><article class="product-card"><img src="assets/images/ricefarm/category-1401.webp" alt="1401 Basmati rice grains from the UrbanFresh range" width="900" height="620"><div><small>Basmati specification</small><h3>1401 Basmati Rice</h3><p>Define grain, processing, residue and packing needs.</p><a href="1401-basmati-rice.html">Build the 1401 brief</a></div></article></div>
@@ -206,7 +206,7 @@ PAGES: list[dict[str, str]] = [
         "h1": "Thank you. Your rice brief is ready for review.",
         "lede": "Continue on WhatsApp if you need to share a specification sheet, label artwork, certificate checklist or shipment document.",
         "body": """
-<section class="section completion-section"><div class="container"><div class="card completion-card"><h2>Keep the full buying brief together.</h2><p>Use the button below to continue the same request on WhatsApp. You can attach product specifications, artwork and document checklists there.</p><p><a class="button" data-whatsapp-follow-up href="https://wa.me/919433569217" target="_blank" rel="noopener">Continue on WhatsApp</a></p><p><a class="completion-link" href="index.html">Return to the international site</a></p></div></div></section>
+<section class="section completion-section"><div class="container"><div class="card completion-card"><h2>Keep the full buying brief together.</h2><p>Use the button below to continue the same request on WhatsApp. You can attach product specifications, artwork and document checklists there.</p><p><a class="button" data-whatsapp-follow-up href="https://wa.me/919433569217" target="_blank" rel="noopener">Continue on WhatsApp</a></p><p><a class="completion-link" href="/">Return to the international site</a></p></div></div></section>
 """,
     },
 ]
@@ -344,7 +344,7 @@ def page_schema(page: dict[str, str]) -> dict[str, object]:
 
 def header(active: str) -> str:
     links = [
-        ("index.html", "Home", active == ""),
+        ("/", "Home", active == ""),
         ("about-mill-infrastructure.html", "The mill", active == "about-mill-infrastructure.html"),
         ("quality-residue-testing.html", "Quality & MRL", active == "quality-residue-testing.html"),
         ("export-documents.html", "Export process", active == "export-documents.html"),
@@ -357,7 +357,7 @@ def header(active: str) -> str:
     return f"""
 <div class="topbar"><div class="container topbar-inner"><span>UrbanFresh Rice Mills · Karnal, India</span><span><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a> · International enquiries</span></div></div>
 <header class="site-header"><div class="container nav-wrap">
-  <a class="brand" href="index.html" aria-label="UrbanFresh International home"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt="UrbanFresh rice grain and sunrise logo"><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a>
+  <a class="brand" href="/" aria-label="UrbanFresh International home"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt="UrbanFresh rice grain and sunrise logo"><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a>
   <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle></button>
   <nav class="main-nav" aria-label="Main navigation" data-main-nav>{rendered}<a class="button button-sm" href="contact.html#rfq">Send RFQ</a></nav>
 </div></header>"""
@@ -366,7 +366,7 @@ def header(active: str) -> str:
 def footer() -> str:
     return f"""
 <footer class="site-footer"><div class="container footer-grid">
-  <div><a class="brand" href="index.html"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt=""><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a><p>A family-operated rice mill in Village Daha, Madanpur, Karnal, India. Specifications, evidence, packing and terms are confirmed per enquiry.</p></div>
+  <div><a class="brand" href="/"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt=""><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a><p>A family-operated rice mill in Village Daha, Madanpur, Karnal, India. Specifications, evidence, packing and terms are confirmed per enquiry.</p></div>
   <div><h2 class="footer-title">Buyer journey</h2><div class="footer-links"><a href="about-mill-infrastructure.html">Mill & infrastructure</a><a href="quality-residue-testing.html">Quality & MRL review</a><a href="export-documents.html">Export documents</a><a href="packing-container-logistics.html">Packing & containers</a></div></div>
   <div><h2 class="footer-title">Rice</h2><div class="footer-links"><a href="1121-basmati-rice.html">1121 Basmati</a><a href="1509-basmati-rice.html">1509 Basmati</a><a href="1401-basmati-rice.html">1401 Basmati</a><a href="private-label-rice.html">Private label</a></div></div>
   <div><h2 class="footer-title">Contact</h2><div class="footer-links"><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><a href="{WHATSAPP}" target="_blank" rel="noopener">WhatsApp buyer desk</a><a href="contact.html#rfq">International RFQ</a><a href="https://urbanfresh.in/" rel="external">Domestic India sales: urbanfresh.in</a><a href="{LINKEDIN}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div>
@@ -380,7 +380,7 @@ def page_hero(page: dict[str, str]) -> str:
         return ""
     return f"""
 <section class="page-hero" style="--page-image:url('/assets/images/ricefarm/{html.escape(page["image"])}')"><div class="container">
-  <div class="breadcrumbs"><a href="index.html">Home</a><span>{html.escape(page["nav"] or page["title"])}</span></div>
+  <div class="breadcrumbs"><a href="/">Home</a><span>{html.escape(page["nav"] or page["title"])}</span></div>
   <p class="eyebrow">{html.escape(page["kicker"])}</p><h1>{html.escape(page["h1"])}</h1><p>{html.escape(page["lede"])}</p>
 </div></section>"""
 

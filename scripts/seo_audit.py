@@ -183,6 +183,13 @@ def audit() -> int:
                 errors.append(f"{label}: invalid JSON-LD ({exc.msg})")
 
         for href in parser.links:
+            parsed_href = urlsplit(href)
+            if (
+                not parsed_href.scheme
+                and not parsed_href.netloc
+                and parsed_href.path.strip("/").removeprefix("./") == "index.html"
+            ):
+                errors.append(f"{label}: internal home link must use / instead of {href}")
             target = internal_target(page, href)
             if target and ROOT in target.parents and not target.exists():
                 errors.append(f"{label}: broken internal link {href}")

@@ -17,11 +17,32 @@
 
 ## Open items
 
-- Search Console has started reporting impressions, but the sample is only
-  three United States desktop impressions with no comparable prior-period rows.
-  Wait for a full comparable 28-day period before changing content.
+- Search Console URL Inspection on 2026-08-08 reported 8 of 10 canonical
+  sitemap pages as indexed. `export-documents.html` and
+  `packing-container-logistics.html` remain pending Google recrawl after the
+  internal-home-link and discovery-signal repair.
+- Performance evidence remains sparse. Wait for a full comparable 28-day
+  period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-08-08 — Canonical discovery signals repaired
+
+- Audited all ten canonical sitemap URLs through the Search Console URL
+  Inspection API. Eight were submitted and indexed with matching Google and
+  user canonicals; the export-documents and packing pages were unknown to
+  Google, with no robots, fetch or conflicting-canonical block reported.
+- Confirmed the new email warning concerns `/index.html`, which correctly
+  canonicalizes to `/`; the three other excluded examples are intentional
+  HTTP and `www` redirects. Replaced all site-generated internal `index.html`
+  links with `/` so the site stops reinforcing the duplicate homepage URL.
+- Added prominent homepage links to the existing export-document checklist and
+  packing/container planning pages without adding unsupported commercial or
+  export claims.
+- Extended the SEO audit and regression suite to reject future internal
+  `index.html` home links. The generator, 11-page audit, PHP syntax, Composer
+  validation, all 45 tests and `git diff --check` pass. Publication and Search
+  Console recrawl submission remain pending.
 
 ### 2026-08-03 — Monthly SEO review held for insufficient evidence
 
