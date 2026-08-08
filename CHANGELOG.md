@@ -41,8 +41,15 @@
   export claims.
 - Extended the SEO audit and regression suite to reject future internal
   `index.html` home links. The generator, 11-page audit, PHP syntax, Composer
-  validation, all 45 tests and `git diff --check` pass. Publication and Search
-  Console recrawl submission remain pending.
+  validation, all 45 tests and `git diff --check` passed.
+- Published commit `28edb67`; Pages run `31248130746`, SEO quality run
+  `31248131421` and Search Console/IndexNow run `31248131372` succeeded. The
+  homepage and both pending pages matched the repository byte-for-byte, and
+  Search Console recorded the sitemap submission at
+  `2026-08-08T08:20:11.026Z`.
+- Google accepted priority-crawl requests for both pending canonical URLs, and
+  the `Discovered – currently not indexed` validation started on 2026-08-08.
+  Indexing remains a Google recrawl decision and is not yet claimed complete.
 
 ### 2026-08-03 — Monthly SEO review held for insufficient evidence
 
