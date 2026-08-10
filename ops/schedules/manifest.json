@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-28",
+  "updated": "2026-08-10",
   "timezone": "Asia/Kolkata",
   "mirror_repositories": [
     "sanjitchak/urbanfresh",
@@ -22,21 +22,16 @@
       "workflow": ".github/workflows/seo-quality.yml"
     },
     {
-      "id": "com.urbanfresh.seo-improver",
-      "owner": "sanjitchak/urbanfresh",
-      "runtime": "macos-launchagent",
+      "id": "urbanfresh-weekly-seo-monitor",
+      "runtime": "codex-local-automation",
       "schedule": "Monday 09:00 local time",
-      "restore_command": "./scripts/install_local_seo_schedule.sh",
+      "specification": "ops/schedules/codex-weekly-monitor.md",
       "covers": [
+        "search-console-reporting",
+        "read-only-seo-monitoring",
         "urbanfresh.in",
         "urbanfreshrice.com"
       ]
-    },
-    {
-      "id": "urbanfresh-weekly-seo-monitor",
-      "runtime": "codex-local-automation",
-      "schedule": "Monday 09:30 local time",
-      "specification": "ops/schedules/codex-weekly-monitor.md"
     },
     {
       "id": "urbanfresh-monthly-seo-loop",

@@ -11,20 +11,27 @@
 - Discovery automation: SEO-relevant pushes wait for the live sitemap and
   IndexNow key, submit and verify the sitemap in Search Console, then notify
   IndexNow
-- Monitoring: weekly GitHub quality checks and a Monday 09:30 AM IST read-only
-  dual-domain monitor; the evidence-gated monthly optimizer remains active on
-  the first Monday at 10:00 AM IST
+- Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
+  Search Console collector/read-only dual-domain monitor; the evidence-gated
+  monthly optimizer remains active on the first Monday at 10:00 AM IST
 
 ## Open items
 
-- Search Console URL Inspection on 2026-08-08 reported 8 of 10 canonical
-  sitemap pages as indexed. `export-documents.html` and
-  `packing-container-logistics.html` remain pending Google recrawl after the
-  internal-home-link and discovery-signal repair.
 - Performance evidence remains sparse. Wait for a full comparable 28-day
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-08-10 — Export indexing completed and collector consolidated
+
+- Search Console URL Inspection reported all ten canonical sitemap pages
+  indexed with no Google/user canonical conflict, robots block or meta-indexing
+  block. The export-document and packing/container pages are no longer pending.
+- The shared domestic LaunchAgent could not read the repositories from macOS's
+  protected `Downloads` folder. The existing read-only Codex monitor now runs
+  at Monday 09:00 and regenerates both Search Console reports before monitoring;
+  the superseded LaunchAgent was disabled and both recovery packs were updated.
+  No export content, claims or discovery files changed.
 
 ### 2026-08-08 — Canonical discovery signals repaired
 

@@ -16,7 +16,6 @@ class ScheduleBackupTests(unittest.TestCase):
             {
                 "domestic-github-quality",
                 "export-github-quality",
-                "com.urbanfresh.seo-improver",
                 "urbanfresh-weekly-seo-monitor",
                 "urbanfresh-monthly-seo-loop",
             }.issubset(ids)
