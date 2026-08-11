@@ -22,6 +22,16 @@
 
 ## Change history
 
+### 2026-08-11 — Direct email added beside the international RFQ form
+
+- Added `sanjit@urbanfreshrice.com` as a direct buyer contact in the top bar,
+  contact panel, footer, mobile action bar and Organization structured data.
+- Kept the structured international RFQ form as the primary enquiry path and
+  retained WhatsApp as a secondary follow-up option. The secure form-delivery
+  recipient and SMTP configuration were not changed.
+- Updated the stylesheet cache key and normalized the mobile container
+  calculation; browser QA at 390 px found no horizontal overflow.
+
 ### 2026-08-10 — Export indexing completed and collector consolidated
 
 - Search Console URL Inspection reported all ten canonical sitemap pages

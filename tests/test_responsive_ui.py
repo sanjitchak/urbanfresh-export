@@ -60,12 +60,23 @@ class ResponsiveUiTests(unittest.TestCase):
         self.assertIn("@media (min-width: 721px)", CSS)
         self.assertIn(".whatsapp-float { display: inline-flex; }", CSS)
 
+    def test_sitewide_contact_actions_prioritize_email_and_rfq(self) -> None:
+        homepage = build_site.render(build_site.PAGES[0])
+        email_link = 'mailto:sanjit@urbanfreshrice.com?subject=International%20rice%20RFQ'
+
+        self.assertIn(email_link, homepage)
+        self.assertIn(f'<div class="mobile-cta"><a class="button button-outline" href="{email_link}">Email us</a>', homepage)
+        self.assertIn('>WhatsApp buyer desk</a>', homepage)
+        self.assertIn('"email":"sanjit@urbanfreshrice.com"', homepage)
+        self.assertIn('assets/css/site.css?v=20260811-1', homepage)
+
     def test_mobile_navigation_is_anchored_to_the_sticky_header(self) -> None:
         self.assertIn("top: 100%;", CSS)
         self.assertNotIn("inset-top:", CSS)
         self.assertIn(".main-nav a { width: 100%; min-height: 48px; }", CSS)
 
     def test_mobile_specification_tables_stack_without_horizontal_scroll(self) -> None:
+        self.assertIn("--container: min(1160px, calc(100% - 28px));", CSS)
         self.assertIn(".spec-table tbody,", CSS)
         self.assertIn(".spec-table td {", CSS)
         self.assertIn("display: block;", CSS)

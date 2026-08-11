@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import build_site  # noqa: E402
+
+
 JS = (ROOT / "assets/js/site.js").read_text(encoding="utf-8")
 GENERATOR = (ROOT / "scripts/build_site.py").read_text(encoding="utf-8")
 ENDPOINT = (ROOT / "server/public_html/submit.php").read_text(encoding="utf-8")
@@ -22,6 +28,16 @@ class FormEmailTests(unittest.TestCase):
         sheet_call = JS.index("await fetch(GOOGLE_SHEETS_ENDPOINT")
         self.assertLess(endpoint_call, sheet_call)
         self.assertIn("https://email.urbanfreshrice.com/submit.php", JS)
+
+    def test_direct_email_is_available_with_form_and_whatsapp_secondary(self) -> None:
+        contact_page = next(page for page in build_site.PAGES if page["slug"] == "contact.html")
+        rendered = build_site.render(contact_page)
+
+        self.assertIn('data-quote-form', rendered)
+        self.assertIn('mailto:sanjit@urbanfreshrice.com?subject=International%20rice%20RFQ', rendered)
+        self.assertIn('>Email us</a>', rendered)
+        self.assertIn('>WhatsApp buyer desk</a>', rendered)
+        self.assertLess(rendered.index('>Email us</a>'), rendered.index('>WhatsApp buyer desk</a>'))
 
     def test_endpoint_restricts_origins_and_keeps_smtp_secret_external(self) -> None:
         self.assertIn("'HTTP_ORIGIN'", ENDPOINT)

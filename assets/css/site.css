@@ -346,6 +346,18 @@ h1, h2 {
   display: inline-flex;
   align-items: center;
 }
+.contact-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 22px;
+}
+.contact-options .button { width: 100%; }
+.contact-options .contact-secondary {
+  justify-content: center;
+  color: var(--white);
+  font-weight: 700;
+}
+.contact-details { margin-bottom: 0; }
 .spec-table { width: 100%; border-collapse: collapse; margin: 26px 0; }
 .spec-table th, .spec-table td { padding: 15px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
 .spec-table th { width: 36%; background: var(--cream); color: var(--forest); }
@@ -490,7 +502,7 @@ h1, h2 {
 }
 
 @media (max-width: 600px) {
-  :root { --container: min(100% - 28px, 1160px); }
+  :root { --container: min(1160px, calc(100% - 28px)); }
   .topbar-inner { justify-content: center; text-align: center; }
   .topbar-inner span:last-child { display: none; }
   .nav-wrap { min-height: 70px; }
