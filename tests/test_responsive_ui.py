@@ -68,7 +68,7 @@ class ResponsiveUiTests(unittest.TestCase):
         self.assertIn(f'<div class="mobile-cta"><a class="button button-outline" href="{email_link}">Email us</a>', homepage)
         self.assertIn('>WhatsApp buyer desk</a>', homepage)
         self.assertIn('"email":"sanjit@urbanfreshrice.com"', homepage)
-        self.assertIn('assets/css/site.css?v=20260811-1', homepage)
+        self.assertIn('assets/css/site.css?v=20260811-2', homepage)
         self.assertNotIn('subject=International%20rice%20RFQ', homepage)
         self.assertNotIn('subject=Domestic%20rice%20quote', homepage)
 
@@ -91,6 +91,10 @@ class ResponsiveUiTests(unittest.TestCase):
         self.assertIn("@media (prefers-reduced-motion: reduce)", CSS)
         self.assertIn("line-height: 1.1;", CSS)
         self.assertIn(".card a:not(.button)", CSS)
+        self.assertIn("--focus-ring: oklch(24% 0.065 158);", CSS)
+        self.assertIn("box-shadow: 0 0 0 6px var(--focus-halo);", CSS)
+        self.assertIn("--whatsapp: oklch(46% 0.13 150);", CSS)
+        self.assertIn("background: var(--whatsapp);", CSS)
 
     def test_thank_you_page_uses_responsive_completion_components(self) -> None:
         page = (ROOT / "thank-you.html").read_text(encoding="utf-8")

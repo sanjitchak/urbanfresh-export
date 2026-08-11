@@ -22,6 +22,21 @@
 
 ## Change history
 
+### 2026-08-11 — Sitewide contrast and focus repair
+
+- Applied the shared Impeccable interface-design guidance without changing the
+  export site's distinct international buyer-desk composition.
+- Replaced the bright WhatsApp floating-control green with accessible OKLCH
+  normal and hover roles, and added a dual-color focus indicator that remains
+  visible on both paper and dark surfaces.
+- Audited all 29 domestic and 11 international pages at 320, 390, 768, 1070 and
+  1440 px. Across 200 page/viewport cases there were no contrast failures,
+  document overflow, clipped content, broken eager images, H1 errors or
+  container-alignment drift; only intentionally hidden anti-spam fields were
+  excluded from visible target/position checks.
+- Rebuilt all 11 generated pages, bumped the stylesheet cache key, added
+  regression assertions and passed all 47 export tests plus `git diff --check`.
+
 ### 2026-08-11 — Direct-email subject standardized
 
 - Changed the prefilled subject on every direct email link to exactly

@@ -427,7 +427,7 @@ def render(page: dict[str, str]) -> str:
   <meta name="twitter:description" content="{html.escape(page["description"])}">
   <meta name="twitter:image" content="{DOMAIN}/assets/images/urbanfresh-export-social.png">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260811-1">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260811-2">
   <script type="application/ld+json">{json.dumps(page_schema(page), separators=(",", ":"))}</script>
 </head>
 <body class="{"page-thank-you" if slug == "thank-you.html" else ""}">
