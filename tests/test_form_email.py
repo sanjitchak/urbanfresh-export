@@ -34,7 +34,9 @@ class FormEmailTests(unittest.TestCase):
         rendered = build_site.render(contact_page)
 
         self.assertIn('data-quote-form', rendered)
-        self.assertIn('mailto:sanjit@urbanfreshrice.com?subject=International%20rice%20RFQ', rendered)
+        self.assertIn('mailto:sanjit@urbanfreshrice.com?subject=Rice%20quote', rendered)
+        self.assertNotIn('subject=International%20rice%20RFQ', rendered)
+        self.assertNotIn('subject=Domestic%20rice%20quote', rendered)
         self.assertIn('>Email us</a>', rendered)
         self.assertIn('>WhatsApp buyer desk</a>', rendered)
         self.assertLess(rendered.index('>Email us</a>'), rendered.index('>WhatsApp buyer desk</a>'))

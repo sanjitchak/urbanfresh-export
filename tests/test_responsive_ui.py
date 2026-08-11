@@ -62,13 +62,15 @@ class ResponsiveUiTests(unittest.TestCase):
 
     def test_sitewide_contact_actions_prioritize_email_and_rfq(self) -> None:
         homepage = build_site.render(build_site.PAGES[0])
-        email_link = 'mailto:sanjit@urbanfreshrice.com?subject=International%20rice%20RFQ'
+        email_link = 'mailto:sanjit@urbanfreshrice.com?subject=Rice%20quote'
 
         self.assertIn(email_link, homepage)
         self.assertIn(f'<div class="mobile-cta"><a class="button button-outline" href="{email_link}">Email us</a>', homepage)
         self.assertIn('>WhatsApp buyer desk</a>', homepage)
         self.assertIn('"email":"sanjit@urbanfreshrice.com"', homepage)
         self.assertIn('assets/css/site.css?v=20260811-1', homepage)
+        self.assertNotIn('subject=International%20rice%20RFQ', homepage)
+        self.assertNotIn('subject=Domestic%20rice%20quote', homepage)
 
     def test_mobile_navigation_is_anchored_to_the_sticky_header(self) -> None:
         self.assertIn("top: 100%;", CSS)

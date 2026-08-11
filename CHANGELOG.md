@@ -22,6 +22,12 @@
 
 ## Change history
 
+### 2026-08-11 — Direct-email subject standardized
+
+- Changed the prefilled subject on every direct email link to exactly
+  `Rice quote`, with no domestic or international qualifier.
+- Kept the RFQ form, WhatsApp actions, recipients and SMTP delivery unchanged.
+
 ### 2026-08-11 — Direct email added beside the international RFQ form
 
 - Added `sanjit@urbanfreshrice.com` as a direct buyer contact in the top bar,
