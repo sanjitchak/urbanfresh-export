@@ -36,6 +36,10 @@
   excluded from visible target/position checks.
 - Rebuilt all 11 generated pages, bumped the stylesheet cache key, added
   regression assertions and passed all 47 export tests plus `git diff --check`.
+- Published UI commit `9b3b0cd`; Pages run `31451487911`, SEO quality run
+  `31451488065` and Search Console/IndexNow run `31451488061` succeeded. The
+  cache-busted live homepage references `20260811-2`, and the production
+  stylesheet matches the repository byte-for-byte.
 
 ### 2026-08-11 — Direct-email subject standardized
 
