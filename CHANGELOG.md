@@ -14,6 +14,7 @@
 - Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
   Search Console collector/read-only dual-domain monitor; the evidence-gated
   monthly optimizer remains active on the first Monday at 10:00 AM IST
+- SEO audit baseline: 11 HTML pages and 49 tests passing as of 2026-08-27
 
 ## Open items
 
@@ -21,6 +22,20 @@
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-08-27 — Fully automated production facility claim added sitewide
+
+- Added the owner-confirmed statement `Our production facility is fully
+  automated.` to the shared footer so it appears on all 11 international HTML
+  pages.
+- Reinforced the claim in the shared top bar, homepage buyer proof and the
+  About the mill page while preserving the international buyer-desk scope.
+- Rebuilt all generated pages and refreshed sitemap modification dates. Added
+  regression coverage that requires the exact statement on every rendered
+  page.
+- Passed all 49 tests, the 11-page SEO audit and `git diff --check`. Browser QA
+  on the homepage and About page at 320, 390 and 1440 px found no horizontal
+  overflow and confirmed the claim remained visible.
 
 ### 2026-08-11 — Sitewide contrast and focus repair
 
