@@ -36,6 +36,10 @@
 - Passed all 49 tests, the 11-page SEO audit and `git diff --check`. Browser QA
   on the homepage and About page at 320, 390 and 1440 px found no horizontal
   overflow and confirmed the claim remained visible.
+- Published commit `eb647d0`; Pages run `33058953661`, SEO quality run
+  `33058955023` and Search Console/IndexNow run `33058954986` succeeded. A
+  cache-busted production check confirmed the exact claim on all 11 live HTML
+  routes.
 
 ### 2026-08-11 — Sitewide contrast and focus repair
 
