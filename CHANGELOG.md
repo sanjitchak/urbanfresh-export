@@ -23,6 +23,17 @@
 
 ## Change history
 
+### 2026-09-02 — U.S. FDA and export-friendly advantages added
+
+- Expanded the homepage buyer-proof comparison with explicit U.S. FDA
+  registration and export-friendly buyer-support rows on both UrbanFresh
+  websites.
+- Described U.S. FDA registration as an available mill record subject to
+  current-copy and scope verification; did not use the misleading phrase
+  `FDA approved`.
+- Rebuilt all generated international pages and passed the 11-page SEO audit,
+  all 51 tests and `git diff --check`.
+
 ### 2026-09-02 — Aggressive buyer-proof comparison added
 
 - Added a prominent homepage section led by `Stop buying rice on promises. Buy

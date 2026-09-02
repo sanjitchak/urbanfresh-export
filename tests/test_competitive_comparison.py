@@ -18,7 +18,9 @@ class CompetitiveComparisonTests(unittest.TestCase):
         self.assertIn("Stop buying rice on promises. Buy against proof.", homepage)
         self.assertIn("The UrbanFresh advantage", homepage)
         self.assertIn("What a weak offer looks like", homepage)
-        self.assertEqual(homepage.count('class="advantage-row"'), 5)
+        self.assertIn("U.S. FDA registration is listed among our available mill records", homepage)
+        self.assertIn("Export-friendly buyer support", homepage)
+        self.assertEqual(homepage.count('class="advantage-row"'), 7)
 
     def test_comparison_is_responsive_and_source_owned(self) -> None:
         source = (ROOT / "scripts/build_site.py").read_text(encoding="utf-8")
