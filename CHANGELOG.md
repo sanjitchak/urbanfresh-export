@@ -14,7 +14,7 @@
 - Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
   Search Console collector/read-only dual-domain monitor; the evidence-gated
   monthly optimizer remains active on the first Monday at 10:00 AM IST
-- SEO audit baseline: 11 HTML pages and 49 tests passing as of 2026-08-27
+- SEO audit baseline: 11 HTML pages and 51 tests passing as of 2026-09-02
 
 ## Open items
 
@@ -22,6 +22,22 @@
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-09-02 — Aggressive buyer-proof comparison added
+
+- Added a prominent homepage section led by `Stop buying rice on promises. Buy
+  against proof.` and a five-row UrbanFresh-versus-weak-offer comparison
+  covering mill source, automation, specification, lot evidence and packing.
+- Kept the sales language forceful without naming a competitor or inventing
+  export history, laboratory, port, loading or compliance claims. Each contrast
+  is tied to an existing UrbanFresh proof point or a clearly labelled weak-offer
+  risk.
+- Added a responsive desktop comparison table and mobile card treatment, bumped
+  the shared stylesheet cache key and rebuilt all 11 generated pages.
+- Added regression coverage and passed all 51 tests, the 11-page SEO audit and
+  `git diff --check`. Browser QA at 320, 390, 768 and 1440 px confirmed five
+  comparison rows, full-width mobile CTA, 50 px target height and no horizontal
+  overflow.
 
 ### 2026-08-27 — Fully automated production facility claim added sitewide
 

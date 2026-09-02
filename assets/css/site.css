@@ -240,6 +240,18 @@ h1, h2 {
 }
 .section-lede { max-width: 650px; color: var(--muted); font-size: 1.05rem; }
 .surface-dark .section-lede { color: #c8d8d0; }
+.advantage-section { color: var(--white); background: var(--forest-deep); }
+.advantage-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .72fr); align-items: end; gap: 64px; margin-bottom: 48px; }
+.advantage-intro .section-title { max-width: 20ch; }
+.advantage-intro .section-lede { margin: 0 0 24px; color: #c8d8d0; }
+.advantage-grid { overflow: hidden; border: 1px solid rgba(219, 226, 217, .34); border-radius: var(--radius); }
+.advantage-row { display: grid; grid-template-columns: minmax(130px, .65fr) minmax(250px, 1.2fr) minmax(250px, 1.2fr); }
+.advantage-row > * { min-width: 0; margin: 0; padding: 20px 22px; border-top: 1px solid rgba(219, 226, 217, .24); }
+.advantage-row > * + * { border-left: 1px solid rgba(219, 226, 217, .24); }
+.advantage-row > span:first-child { color: var(--gold-soft); font-weight: 700; }
+.advantage-row > strong { color: var(--white); background: rgba(45, 105, 78, .36); font-size: 1.02rem; }
+.advantage-row > span:last-child { color: #c8d8d0; }
+.advantage-head > * { border-top: 0; color: var(--white) !important; background: var(--forest); font: 700 .78rem/1.3 var(--sans); letter-spacing: .055em; text-transform: uppercase; }
 .grid-2 { display: grid; grid-template-columns: 1.05fr .95fr; gap: 70px; align-items: center; }
 .photo-card {
   position: relative;
@@ -519,6 +531,14 @@ h1, h2 {
   .hero-actions .button { width: 100%; }
   .section { padding: 72px 0; }
   .section-head, .quote-band-inner { display: grid; align-items: start; }
+  .advantage-intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 34px; }
+  .advantage-intro .button { width: 100%; }
+  .advantage-head { display: none; }
+  .advantage-grid { overflow: visible; border: 0; }
+  .advantage-row { grid-template-columns: 1fr; margin-bottom: 16px; border: 1px solid rgba(219, 226, 217, .34); border-radius: 12px; overflow: hidden; }
+  .advantage-row > * { padding: 15px 17px; border: 0; }
+  .advantage-row > * + * { border-top: 1px solid rgba(219, 226, 217, .24); border-left: 0; }
+  .advantage-row > span:first-child { background: var(--forest); }
   .photo-card { min-height: 450px; }
   .card-grid, .product-grid, .form-grid, .footer-grid { grid-template-columns: 1fr; }
   .field.full { grid-column: auto; }
