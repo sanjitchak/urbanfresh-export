@@ -175,14 +175,25 @@ button, input, select, textarea { font: inherit; }
     linear-gradient(90deg, rgba(7, 36, 27, .96) 0%, rgba(7, 36, 27, .78) 48%, rgba(7, 36, 27, .18) 78%),
     var(--hero-image) center/cover no-repeat;
 }
+.hero-video { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.hero-video wistia-player { width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .5s ease; }
+.hero-video wistia-player:defined { opacity: 1; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(5, 29, 22, .95) 0%, rgba(6, 34, 25, .88) 52%, rgba(6, 31, 24, .58) 100%);
+}
 .hero::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
   height: 120px;
-  background: linear-gradient(transparent, rgba(6, 31, 24, .35));
+  z-index: 1;
+  background: linear-gradient(transparent, rgba(6, 31, 24, .48));
 }
-.hero-inner { position: relative; z-index: 1; padding: 112px 0 84px; }
+.hero-inner { position: relative; z-index: 2; padding: 112px 0 84px; }
 .hero-copy { max-width: 730px; }
 .eyebrow {
   margin: 0 0 16px;
@@ -611,6 +622,7 @@ h1, h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     scroll-behavior: auto !important;

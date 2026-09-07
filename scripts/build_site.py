@@ -33,6 +33,8 @@ WHATSAPP = "https://wa.me/919433569217?text=Hello%20UrbanFresh%2C%20I%20would%20
 LINKEDIN = "https://www.linkedin.com/company/urbanfreshin"
 MAP_URL = "https://local.google.com/place?placeid=ChIJEXtmKGRxDjkRqoJCBUKpPQI"
 AUTOMATION_CLAIM = "Our production facility is fully automated."
+WISTIA_MEDIA_ID = "lxjkrtdi02"
+CSS_VERSION = "20260907-1"
 
 
 PAGES: list[dict[str, str]] = [
@@ -43,7 +45,8 @@ PAGES: list[dict[str, str]] = [
         "description": "Source specification-led basmati rice from UrbanFresh's fully automated facility in Karnal, India. Review mill capability, quality process and RFQ requirements.",
         "image": "mill-processing-plant.webp",
         "body": """
-<section class="hero" style="--hero-image:url('/assets/images/ricefarm/mill-processing-plant.webp')">
+<section class="hero hero-with-video" style="--hero-image:url('/assets/images/ricefarm/mill-processing-plant.webp')">
+  <div class="hero-video" aria-hidden="true"><wistia-player media-id="lxjkrtdi02" aspect="1.7777777777777777" autoplay muted silent-autoplay="allow" end-video-behavior="loop" fit-strategy="cover" swatch="false" transparent-letterbox="true" big-play-button="false" controls-visible-on-load="false" play-bar-control="false" play-pause-control="false" settings-control="false" fullscreen-control="false"></wistia-player></div>
   <div class="container hero-inner"><div class="hero-copy">
     <p class="eyebrow">Karnal, India · International buyer desk</p>
     <h1>Rice sourcing begins with a <span>written specification.</span></h1>
@@ -401,6 +404,12 @@ def render(page: dict[str, str]) -> str:
         alternates = f"""
   <link rel="alternate" hreflang="en-IN" href="https://urbanfresh.in/about.html">
   <link rel="alternate" hreflang="en" href="{DOMAIN}/about-mill-infrastructure.html">"""
+    wistia_head = ""
+    if not slug:
+        wistia_head = f"""
+  <link rel="preconnect" href="https://fast.wistia.com" crossorigin>
+  <script src="https://fast.wistia.com/player.js" async></script>
+  <script src="https://fast.wistia.com/embed/{WISTIA_MEDIA_ID}.js" async type="module"></script>"""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -429,7 +438,8 @@ def render(page: dict[str, str]) -> str:
   <meta name="twitter:description" content="{html.escape(page["description"])}">
   <meta name="twitter:image" content="{DOMAIN}/assets/images/urbanfresh-export-social.png">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260902-1">
+  <link rel="stylesheet" href="assets/css/site.css?v={CSS_VERSION}">
+{wistia_head}
   <script type="application/ld+json">{json.dumps(page_schema(page), separators=(",", ":"))}</script>
 </head>
 <body class="{"page-thank-you" if slug == "thank-you.html" else ""}">

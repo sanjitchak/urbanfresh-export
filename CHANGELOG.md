@@ -14,7 +14,7 @@
 - Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
   Search Console collector/read-only dual-domain monitor; the evidence-gated
   monthly optimizer remains active on the first Monday at 10:00 AM IST
-- SEO audit baseline: 11 HTML pages and 51 tests passing as of 2026-09-02
+- SEO audit baseline: 11 HTML pages and 53 tests passing as of 2026-09-07
 
 ## Open items
 
@@ -22,6 +22,20 @@
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-09-07 — Wistia mill video added to the homepage hero
+
+- Added owner-supplied Wistia media `lxjkrtdi02` as a muted, looping,
+  cover-fit background behind the international homepage hero copy.
+- Preserved the existing first-party mill photograph underneath the player so
+  it remains the fallback before load, after a video failure and for users who
+  prefer reduced motion. Loaded Wistia only on the homepage.
+- Strengthened the responsive gradient overlay and kept the headline, copy and
+  CTAs above the video. Real Chrome QA confirmed the player reached `playing`,
+  retained zero horizontal overflow at a true 390 px viewport and rendered
+  cleanly at 1440 px.
+- Rebuilt all pages, passed the 11-page SEO audit, all 53 tests and
+  `git diff --check`.
 
 ### 2026-09-07 — Monthly SEO review retained existing pages
 
