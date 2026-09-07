@@ -23,6 +23,30 @@
 
 ## Change history
 
+### 2026-09-07 — Monthly SEO review retained existing pages
+
+- Decision: `No change - insufficient evidence`. Search Console final
+  August 8–September 4 versus July 11–August 7 reported 37 versus
+  8 query-visible impressions and zero clicks. No page/query sample
+  reached the 100-impression threshold; prior changes remain unevaluable.
+- Preserved separate country/device evidence: US desktop 7 versus 5, UK
+  desktop 10 versus 1 and UAE desktop 6 versus 1 impressions. Non-India
+  desktop is 27 versus 8 and mobile 3 versus 0; India desktop 4 and mobile 3
+  have no prior rows. No tablet rows; every market has zero reported clicks.
+  The July 25 launch falls inside the comparison window.
+- Authenticated Ubersuggest API verified the exact domain project. Desktop
+  top-100 counts are US 1/10, UK 4/10 and UAE 3/10 (September 5); audit
+  100/100 on 10 pages. India is untracked in this project.
+- Appended one review row to `seo/monthly-log.csv`; saved first-party exact
+  dimensions, external API research and the decision in ignored
+  `reports/seo-improver/2026-09-07/`. No content or discovery file changed.
+- Generator, 11-page audit and all 51 tests passed with no generated drift.
+  Reviewed deployed SHA `6237b08801f8ba5cac170aaf8ae6f2b04b1cc695`; its
+  Pages, quality and discovery workflows succeeded. This reporting change is
+  prepared for a separate `Monthly SEO:` commit; final push/live results are
+  recorded in the dated ignored `release-verification.md`. Unchanged sitemap
+  and IndexNow payloads are not resubmitted. Keep collecting comparable data.
+
 ### 2026-09-02 — U.S. FDA and export-friendly advantages added
 
 - Expanded the homepage buyer-proof comparison with explicit U.S. FDA
