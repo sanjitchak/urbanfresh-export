@@ -29,6 +29,9 @@ PHONE_DISPLAY = "+91 94335 69217"
 PHONE_LINK = "+919433569217"
 CONTACT_EMAIL = "sanjit@urbanfreshrice.com"
 EMAIL_LINK = "mailto:sanjit@urbanfreshrice.com?subject=Rice%20quote"
+LEGAL_ENTITY = "Rajesh Industries"
+STREET_ADDRESS = "119/6, Mile Stone, GT Road, Opp to Neelkanth Dhaba, Daha Madanpur Village, Near Namastey Chowk"
+ADDRESS = f"{STREET_ADDRESS}, Karnal, Haryana - 132001, India"
 WHATSAPP = "https://wa.me/919433569217?text=Hello%20UrbanFresh%2C%20I%20would%20like%20to%20send%20an%20international%20rice%20RFQ."
 LINKEDIN = "https://www.linkedin.com/company/urbanfreshin"
 MAP_URL = "https://local.google.com/place?placeid=ChIJEXtmKGRxDjkRqoJCBUKpPQI"
@@ -44,7 +47,7 @@ PAGES: list[dict[str, str]] = [
         "title": "Indian Rice Mill for International Buyers | UrbanFresh",
         "description": "Source specification-led basmati rice from UrbanFresh's fully automated facility in Karnal, India. Review mill capability, quality process and RFQ requirements.",
         "image": "mill-processing-plant.webp",
-        "body": """
+        "body": f"""
 <section class="hero hero-with-video" style="--hero-image:url('/assets/images/ricefarm/mill-processing-plant.webp')">
   <div class="hero-video" aria-hidden="true"><wistia-player media-id="lxjkrtdi02" aspect="1.7777777777777777" autoplay muted silent-autoplay="allow" end-video-behavior="loop" fit-strategy="cover" swatch="false" transparent-letterbox="true" big-play-button="false" controls-visible-on-load="false" play-bar-control="false" play-pause-control="false" settings-control="false" fullscreen-control="false"></wistia-player></div>
   <div class="container hero-inner"><div class="hero-copy">
@@ -79,9 +82,9 @@ PAGES: list[dict[str, str]] = [
         "image": "mill-infrastructure.webp",
         "kicker": "The mill behind the offer",
         "h1": "A family-operated rice mill in Karnal, India.",
-        "lede": "UrbanFresh Rice Mills operates from Village Daha, Madanpur, Karnal. The business was established in 1978. Our production facility is fully automated and handles paddy preparation, rice processing, sorting and packing.",
-        "body": """
-<section class="section"><div class="container grid-2"><div class="photo-card"><img src="assets/images/ricefarm/mill-processing-plant.webp" alt="UrbanFresh rice processing and grain handling structures in Karnal" width="896" height="1280"></div><div><h2 class="section-title">The physical mill is part of buyer due diligence.</h2><p class="section-lede">Our production facility is fully automated. International buyers can review where the rice is processed and which connected production stages are handled at the mill. These first-party photographs show the site behind the UrbanFresh brand.</p><ul class="check-list"><li>Village Daha, Madanpur manufacturing address.</li><li>Family-operated rice business established in 1978.</li><li>Fully automated production facility.</li><li>Published mill capability of 230 metric tons per day across three production units.</li><li>Cleaning, parboiling, drying, milling, sorting, polishing and packing systems.</li></ul><div class="notice"><strong>Order-specific confirmation:</strong> available line capacity and production timing are confirmed for the requested rice and shipment window.</div></div></div></section>
+        "lede": f"The UrbanFresh mill is operated under the legal name {LEGAL_ENTITY} at {ADDRESS}. The business was established in 1978. Our production facility is fully automated and handles paddy preparation, rice processing, sorting and packing.",
+        "body": f"""
+<section class="section"><div class="container grid-2"><div class="photo-card"><img src="assets/images/ricefarm/mill-processing-plant.webp" alt="UrbanFresh rice processing and grain handling structures in Karnal" width="896" height="1280"></div><div><h2 class="section-title">The physical mill is part of buyer due diligence.</h2><p class="section-lede">Our production facility is fully automated. International buyers can review where the rice is processed and which connected production stages are handled at the mill. These first-party photographs show the site behind the UrbanFresh brand.</p><ul class="check-list"><li>Mill operated under the legal name {LEGAL_ENTITY}.</li><li>{ADDRESS}.</li><li>Family-operated rice business established in 1978.</li><li>Fully automated production facility.</li><li>Published mill capability of 230 metric tons per day across three production units.</li><li>Cleaning, parboiling, drying, milling, sorting, polishing and packing systems.</li></ul><div class="notice"><strong>Order-specific confirmation:</strong> available line capacity and production timing are confirmed for the requested rice and shipment window.</div></div></div></section>
 <section class="section surface"><div class="container"><div class="section-head"><div><p class="eyebrow" style="color:var(--leaf)">Processing flow</p><h2 class="section-title">Connected stages from paddy to pack.</h2></div></div><div class="card-grid"><article class="card"><span class="number">01</span><h3>Prepare</h3><p>Paddy procurement, drying, warehousing, pre-cleaning, de-stoning and grading.</p></article><article class="card"><span class="number">02</span><h3>Process</h3><p>Parboiling where applicable, mechanised drying, de-husking, milling and polishing.</p></article><article class="card"><span class="number">03</span><h3>Finish</h3><p>Sorting, separation, magnets, accepted packing and shipment coordination.</p></article></div></div></section>
 <section class="section"><div class="container grid-2"><div><p class="eyebrow" style="color:var(--leaf)">Mill-side verification</p><h2 class="section-title">What an importer can request.</h2><p class="section-lede">Ask for current company records, mill photographs, the proposed product specification, sample arrangements, applicable test evidence and packing details. Document validity and scope should be checked for the legal operating entity and intended market.</p><p><a class="button" href="contact.html#rfq">Request due-diligence documents</a></p></div><div class="photo-card"><img src="assets/images/ricefarm/mill-campus-chimney.webp" alt="RI-marked chimney at the UrbanFresh Rice Mills production campus" loading="lazy" width="751" height="1280"></div></div></section>
 """,
@@ -200,7 +203,7 @@ PAGES: list[dict[str, str]] = [
   <div class="form-honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
   <p><button class="button" type="submit">Submit international RFQ</button></p>
   <div class="form-status" data-form-status tabindex="-1" aria-live="polite"></div>
-</form></div><aside class="info-panel"><h2>Mill contact</h2><p>UrbanFresh Rice Mills<br>119/6, Highway, Village Daha, Madanpur<br>Karnal 132001, Haryana, India</p><div class="contact-options"><a class="button button-gold" href="{EMAIL_LINK}">Email us</a><a class="contact-secondary" href="https://wa.me/919433569217?text=Hello%20UrbanFresh%2C%20I%20would%20like%20to%20send%20an%20international%20rice%20RFQ." target="_blank" rel="noopener">WhatsApp buyer desk</a></div><p class="contact-details"><a href="{EMAIL_LINK}">sanjit@urbanfreshrice.com</a><br><a href="tel:+919433569217">+91 94335 69217</a></p></aside></div></section>
+</form></div><aside class="info-panel"><h2>Mill contact</h2><p>UrbanFresh Rice Mills<br><strong>{LEGAL_ENTITY}</strong><br>119/6, Mile Stone, GT Road<br>Opp to Neelkanth Dhaba<br>Daha Madanpur Village, Near Namastey Chowk<br>Karnal, Haryana - 132001, India</p><div class="contact-options"><a class="button button-gold" href="{EMAIL_LINK}">Email us</a><a class="contact-secondary" href="https://wa.me/919433569217?text=Hello%20UrbanFresh%2C%20I%20would%20like%20to%20send%20an%20international%20rice%20RFQ." target="_blank" rel="noopener">WhatsApp buyer desk</a></div><p class="contact-details"><a href="{EMAIL_LINK}">sanjit@urbanfreshrice.com</a><br><a href="tel:+919433569217">+91 94335 69217</a></p></aside></div></section>
 """,
     },
     {
@@ -232,6 +235,7 @@ def organization_schema() -> dict[str, object]:
         "@type": "Organization",
         "@id": f"{DOMAIN}/#organization",
         "name": "UrbanFresh Rice Mills",
+        "legalName": LEGAL_ENTITY,
         "url": f"{DOMAIN}/",
         "logo": {
             "@type": "ImageObject",
@@ -250,7 +254,7 @@ def organization_schema() -> dict[str, object]:
         "foundingDate": "1978",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "119/6, Highway, Village Daha, Madanpur",
+            "streetAddress": STREET_ADDRESS,
             "addressLocality": "Karnal",
             "addressRegion": "Haryana",
             "postalCode": "132001",
@@ -363,7 +367,7 @@ def header(active: str) -> str:
         for href, label, selected in links
     )
     return f"""
-<div class="topbar"><div class="container topbar-inner"><span>Fully automated production facility · Karnal, India</span><span><a href="{EMAIL_LINK}">Email us</a> · <a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></span></div></div>
+<div class="topbar"><div class="container topbar-inner"><span>Fully automated production facility · Rajesh Industries · Karnal, India</span><span><a href="{EMAIL_LINK}">Email us</a> · <a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></span></div></div>
 <header class="site-header"><div class="container nav-wrap">
   <a class="brand" href="/" aria-label="UrbanFresh International home"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt="UrbanFresh rice grain and sunrise logo"><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a>
   <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle></button>
@@ -374,10 +378,10 @@ def header(active: str) -> str:
 def footer() -> str:
     return f"""
 <footer class="site-footer"><div class="container footer-grid">
-  <div><a class="brand" href="/"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt=""><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a><p>A family-operated rice mill in Village Daha, Madanpur, Karnal, India. {AUTOMATION_CLAIM} Specifications, evidence, packing and terms are confirmed per enquiry.</p></div>
+  <div><a class="brand" href="/"><img src="assets/images/urbanfresh-logo.webp" width="48" height="48" alt=""><span class="brand-copy"><span class="brand-name">UrbanFresh</span><span class="brand-tag">International buyer desk</span></span></a><p>The mill is operated under the legal name {LEGAL_ENTITY}; UrbanFresh is the customer-facing brand. Established in 1978, we serve international buyers from Karnal, India. {AUTOMATION_CLAIM} Specifications, evidence, packing and terms are confirmed per enquiry.</p></div>
   <div><h2 class="footer-title">Buyer journey</h2><div class="footer-links"><a href="about-mill-infrastructure.html">Mill & infrastructure</a><a href="quality-residue-testing.html">Quality & MRL review</a><a href="export-documents.html">Export documents</a><a href="packing-container-logistics.html">Packing & containers</a></div></div>
   <div><h2 class="footer-title">Rice</h2><div class="footer-links"><a href="1121-basmati-rice.html">1121 Basmati</a><a href="1509-basmati-rice.html">1509 Basmati</a><a href="1401-basmati-rice.html">1401 Basmati</a><a href="private-label-rice.html">Private label</a></div></div>
-  <div><h2 class="footer-title">Contact</h2><div class="footer-links"><a href="{EMAIL_LINK}">{CONTACT_EMAIL}</a><a href="contact.html#rfq">International RFQ form</a><a href="{WHATSAPP}" target="_blank" rel="noopener">WhatsApp buyer desk</a><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><a href="https://urbanfresh.in/" rel="external">Domestic India sales: urbanfresh.in</a><a href="{LINKEDIN}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div>
+  <div><h2 class="footer-title">Contact</h2><div class="footer-links"><span>{LEGAL_ENTITY}</span><span>119/6, Mile Stone, GT Road</span><span>Opp to Neelkanth Dhaba</span><span>Daha Madanpur Village, Near Namastey Chowk</span><span>Karnal, Haryana - 132001, India</span><a href="{EMAIL_LINK}">{CONTACT_EMAIL}</a><a href="contact.html#rfq">International RFQ form</a><a href="{WHATSAPP}" target="_blank" rel="noopener">WhatsApp buyer desk</a><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><a href="https://urbanfresh.in/" rel="external">Domestic India sales: urbanfresh.in</a><a href="{LINKEDIN}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div>
 </div><div class="container footer-bottom"><span>© <span data-year></span> UrbanFresh Rice Mills.</span><span>Availability, specifications, evidence, packing and terms are confirmed per enquiry.</span></div></footer>
 <a class="whatsapp-float" href="{WHATSAPP}" target="_blank" rel="noopener" aria-label="Chat with the UrbanFresh international buyer desk on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.002-5.45 4.438-9.89 9.892-9.89a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.024c-.002 5.45-4.438 9.89-9.888 9.89m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.3-1.654a11.882 11.882 0 0 0 5.69 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
 <div class="mobile-cta"><a class="button button-outline" href="{EMAIL_LINK}">Email us</a><a class="button" href="contact.html#rfq">Send RFQ</a></div>"""

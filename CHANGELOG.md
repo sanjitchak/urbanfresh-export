@@ -14,7 +14,7 @@
 - Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
   Search Console collector/read-only dual-domain monitor; the evidence-gated
   monthly optimizer remains active on the first Monday at 10:00 AM IST
-- SEO audit baseline: 11 HTML pages and 53 tests passing as of 2026-09-07
+- SEO audit baseline: 11 HTML pages and 55 tests passing as of 2026-09-08
 
 ## Open items
 
@@ -22,6 +22,19 @@
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-09-08 — Rajesh Industries legal name and complete mill address added
+
+- Identified Rajesh Industries as the legal name under which the mill operates,
+  while retaining UrbanFresh as the international customer-facing brand.
+- Published the complete owner-supplied Karnal address in the shared footer,
+  contact page and mill due-diligence page, and added `legalName` plus the exact
+  address to Organization structured data on all generated pages.
+- Updated `CONTENT-VERIFICATION.md` with the owner-confirmed legal name and
+  address, then added regression coverage for visible and machine-readable use.
+- Rebuilt all 11 pages and passed the SEO audit, all 55 tests and
+  `git diff --check`. A 390 px headless Chrome contact-page render confirmed the
+  expanded address remains readable in the mobile contact panel.
 
 ### 2026-09-07 — Wistia mill video added to the homepage hero
 

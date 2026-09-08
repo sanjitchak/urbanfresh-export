@@ -6,6 +6,10 @@ business-fact source for this site.
 ## Published from that source
 
 - UrbanFresh Rice Mills name, address, phone, map place and LinkedIn page
+- The mill's legal operating name is Rajesh Industries; UrbanFresh is the
+  customer-facing brand
+- Mill address: 119/6, Mile Stone, GT Road, Opp to Neelkanth Dhaba, Daha
+  Madanpur Village, Near Namastey Chowk, Karnal, Haryana - 132001, India
 - Family-operated mill established in 1978
 - Three production units and published daily capacity of 230 metric tons
 - Basmati/non-basmati ranges and listed processing styles
@@ -27,4 +31,3 @@ business-fact source for this site.
 
 These fields are confirmed per enquiry until the source repository contains
 stronger evidence.
-
