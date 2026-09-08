@@ -35,6 +35,10 @@
 - Rebuilt all 11 pages and passed the SEO audit, all 55 tests and
   `git diff --check`. A 390 px headless Chrome contact-page render confirmed the
   expanded address remains readable in the mobile contact panel.
+- Released website commit `0c2faf1` to `main`. GitHub Pages, SEO quality and
+  discovery workflows succeeded; live homepage and contact-page bytes matched
+  the repository and exposed the exact legal name, visible address and
+  Organization structured data.
 
 ### 2026-09-07 — Wistia mill video added to the homepage hero
 
