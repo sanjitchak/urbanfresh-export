@@ -68,7 +68,7 @@ class ResponsiveUiTests(unittest.TestCase):
         self.assertIn(f'<div class="mobile-cta"><a class="button button-outline" href="{email_link}">Email us</a>', homepage)
         self.assertIn('>WhatsApp buyer desk</a>', homepage)
         self.assertIn('"email":"sanjit@urbanfreshrice.com"', homepage)
-        self.assertIn('assets/css/site.css?v=20260907-1', homepage)
+        self.assertIn('assets/css/site.css?v=20260912-1', homepage)
         self.assertNotIn('subject=International%20rice%20RFQ', homepage)
         self.assertNotIn('subject=Domestic%20rice%20quote', homepage)
 

@@ -14,7 +14,7 @@
 - Monitoring: weekly GitHub quality checks and a combined Monday 09:00 AM IST
   Search Console collector/read-only dual-domain monitor; the evidence-gated
   monthly optimizer remains active on the first Monday at 10:00 AM IST
-- SEO audit baseline: 11 HTML pages and 55 tests passing as of 2026-09-08
+- SEO audit baseline: 12 HTML pages and 58 tests passing as of 2026-09-12
 
 ## Open items
 
@@ -22,6 +22,21 @@
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-09-12 — Factory and client-loading Wistia proof page
+
+- Added a dedicated `client-proof.html` page with the existing factory video
+  and owner-supplied 10 MT and 125 MT client-loading footage, all delivered as
+  Wistia embeds rather than repository-hosted MP4 files.
+- Linked the proof page from the homepage comparison and shared footer, added
+  it to the keyword map and XML sitemap, and built responsive portrait and
+  landscape player layouts.
+- Recorded the supplied footage in `CONTENT-VERIFICATION.md` and kept the page
+  limited to what the videos show; it does not infer buyer identity, product
+  specification, destination, shipment route, terms or direct-versus-merchant
+  export status.
+- Rebuilt all generated pages and passed the 12-page SEO audit, all 58 tests
+  and `git diff --check`.
 
 ### 2026-09-08 — Rajesh Industries legal name and complete mill address added
 

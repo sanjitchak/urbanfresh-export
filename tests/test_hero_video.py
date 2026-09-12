@@ -22,7 +22,7 @@ class HeroVideoTests(unittest.TestCase):
         self.assertIn(".hero-inner { position: relative; z-index: 2;", css)
         self.assertIn(".hero-video { display: none; }", css)
         for page in ROOT.glob("*.html"):
-            if page.name != "index.html":
+            if page.name not in {"index.html", "client-proof.html"}:
                 self.assertNotIn("fast.wistia.com/player.js", page.read_text(encoding="utf-8"))
 
 

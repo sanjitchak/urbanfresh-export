@@ -19,6 +19,9 @@ business-fact source for this site.
   buyer-verification language
 - Private-label and buyer-specified packing enquiries
 - Destination- and lot-specific residue-evidence posture
+- Owner-supplied first-party factory video and 10 MT and 125 MT client-loading
+  footage, without publishing buyer identity, destination, product specification,
+  terms or direct-versus-merchant export attribution
 
 ## Not claimed because the source does not specify it
 
