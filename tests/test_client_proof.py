@@ -18,12 +18,15 @@ class ClientProofTests(unittest.TestCase):
         self.assertNotIn("<video", page)
         self.assertNotIn(".mp4", page)
 
-    def test_page_keeps_loading_claims_within_the_supplied_evidence(self) -> None:
+    def test_page_is_simple_and_client_players_are_equal_size(self) -> None:
         page = (ROOT / "client-proof.html").read_text(encoding="utf-8")
-        self.assertIn("Loading 10 metric tons.", page)
-        self.assertIn("Loading 125 metric tons.", page)
-        self.assertIn("They do not identify the buyer", page)
-        self.assertIn("whether any export movement was direct or through a merchant exporter", page)
+        self.assertIn("10 MT client loading", page)
+        self.assertIn("125 MT client loading", page)
+        self.assertEqual(page.count('class="proof-card"'), 2)
+        self.assertEqual(page.count('class="proof-card"><div class="proof-video proof-video-landscape">'), 2)
+        self.assertNotIn("A visible production base, not a catalogue-only promise.", page)
+        self.assertNotIn("Evidence boundary:", page)
+        self.assertNotIn("Product specification, buyer identity", page)
 
     def test_homepage_and_footer_link_to_client_proof(self) -> None:
         homepage = (ROOT / "index.html").read_text(encoding="utf-8")

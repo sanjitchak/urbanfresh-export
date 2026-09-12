@@ -483,20 +483,14 @@ h1, h2 {
 .whatsapp-float:active { transform: translateY(0); }
 .mobile-cta { display: none; }
 
-.proof-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .72fr); gap: 64px; align-items: end; }
-.proof-feature { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); gap: 56px; align-items: center; }
-.proof-grid { display: grid; grid-template-columns: minmax(260px, .62fr) minmax(0, 1.38fr); gap: 28px; align-items: start; }
+.proof-gallery > .section-title { margin-bottom: 32px; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; }
 .proof-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: 0 10px 30px rgba(9,42,32,.06); }
 .proof-video { width: 100%; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--forest-deep); box-shadow: var(--shadow); }
 .proof-card .proof-video { border: 0; border-radius: 0; box-shadow: none; }
-.proof-video wistia-player { display: block; width: 100%; }
+.proof-video wistia-player { display: block; width: 100%; height: 100%; }
 .proof-video-landscape { aspect-ratio: 16 / 9; }
-.proof-video-portrait { width: min(100%, 430px); aspect-ratio: 474 / 850; margin-inline: auto; }
-.proof-copy { padding: 28px; }
-.proof-feature .proof-copy { padding: 0; }
-.proof-copy h2 { margin: 0 0 12px; font-size: clamp(1.65rem, 3vw, 2.45rem); }
-.proof-copy p:not(.eyebrow) { margin: 0 0 22px; color: var(--muted); }
-.proof-boundary { margin-top: 32px; }
+.proof-card h3 { margin: 0; padding: 20px 22px; font-size: clamp(1.2rem, 2vw, 1.55rem); }
 .completion-section { padding-block: clamp(56px, 8vw, 92px); }
 .completion-card {
   width: 100%;
@@ -542,7 +536,6 @@ h1, h2 {
   .info-panel { position: static; }
   .card-grid, .product-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .proof-intro, .proof-feature { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (max-width: 600px) {
@@ -569,7 +562,6 @@ h1, h2 {
   .photo-card { min-height: 450px; }
   .card-grid, .product-grid, .form-grid, .footer-grid { grid-template-columns: 1fr; }
   .proof-grid { grid-template-columns: 1fr; }
-  .proof-copy { padding: 22px; }
   .field.full { grid-column: auto; }
   .content-layout > *,
   .grid-2 > * { min-width: 0; }

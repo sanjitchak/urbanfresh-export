@@ -38,7 +38,7 @@ MAP_URL = "https://local.google.com/place?placeid=ChIJEXtmKGRxDjkRqoJCBUKpPQI"
 AUTOMATION_CLAIM = "Our production facility is fully automated."
 WISTIA_MEDIA_ID = "lxjkrtdi02"
 CLIENT_PROOF_MEDIA_IDS = ("l82atxvvng", "8bg0co98z9")
-CSS_VERSION = "20260912-1"
+CSS_VERSION = "20260912-2"
 
 
 PAGES: list[dict[str, str]] = [
@@ -82,12 +82,11 @@ PAGES: list[dict[str, str]] = [
         "description": "Watch first-party Wistia videos of the Rajesh Industries factory and 10 MT and 125 MT client-loading activity for UrbanFresh buyers.",
         "image": "mill-processing-plant.webp",
         "kicker": "Factory and client proof",
-        "h1": "See the facility. See real client-loading activity.",
-        "lede": "Three first-party Wistia videos show the Rajesh Industries production facility and loading activity for 10 MT and 125 MT client orders.",
+        "h1": "Factory and client loading videos.",
+        "lede": "",
         "body": f"""
-<section class="section"><div class="container proof-intro"><div><p class="eyebrow" style="color:var(--leaf)">The mill behind the offer</p><h2 class="section-title">A visible production base, not a catalogue-only promise.</h2></div><p class="section-lede">Start with the factory video, then review two examples of client-loading activity. Every player on this page is a Wistia embed; the website does not serve the uploaded MP4 files directly.</p></div></section>
-<section class="section surface"><div class="container"><article class="proof-feature"><div class="proof-video proof-video-landscape"><wistia-player media-id="{WISTIA_MEDIA_ID}" aspect="1.7777777777777777"></wistia-player></div><div class="proof-copy"><p class="eyebrow" style="color:var(--leaf)">Factory video</p><h2>Inside the Rajesh Industries mill.</h2><p>See the Karnal production facility behind the UrbanFresh brand, including the physical processing base presented to buyers.</p><a class="button" href="about-mill-infrastructure.html">Review mill infrastructure</a></div></article></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow" style="color:var(--leaf)">Client loading proof</p><h2 class="section-title">Real loading activity from the mill.</h2></div><p class="section-lede">These clips document the quantities named in the supplied footage. Product specification, buyer identity, destination and commercial terms remain confidential and order-specific.</p></div><div class="proof-grid"><article class="proof-card proof-card-portrait"><div class="proof-video proof-video-portrait"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[0]}" aspect="0.5576470588"></wistia-player></div><div class="proof-copy"><p class="eyebrow" style="color:var(--leaf)">10 MT client order</p><h2>Loading 10 metric tons.</h2><p>First-party footage showing loading activity for a 10 MT client requirement.</p></div></article><article class="proof-card"><div class="proof-video proof-video-landscape"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[1]}" aspect="1.7777777778"></wistia-player></div><div class="proof-copy"><p class="eyebrow" style="color:var(--leaf)">125 MT client order</p><h2>Loading 125 metric tons.</h2><p>First-party footage showing loading activity for a 125 MT client requirement.</p></div></article></div><div class="notice proof-boundary"><strong>Evidence boundary:</strong> these videos demonstrate the factory and client-loading activity shown. They do not identify the buyer, rice specification, destination, shipment route, terms or whether any export movement was direct or through a merchant exporter.</div></div></section>
+<section class="section surface"><div class="container proof-gallery"><h2 class="section-title">Factory video</h2><div class="proof-video proof-video-landscape"><wistia-player media-id="{WISTIA_MEDIA_ID}" aspect="1.7777777777777777"></wistia-player></div></div></section>
+<section class="section"><div class="container proof-gallery"><h2 class="section-title">Client loading videos</h2><div class="proof-grid"><article class="proof-card"><div class="proof-video proof-video-landscape"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[0]}" aspect="1.7777777777777777"></wistia-player></div><h3>10 MT client loading</h3></article><article class="proof-card"><div class="proof-video proof-video-landscape"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[1]}" aspect="1.7777777777777777"></wistia-player></div><h3>125 MT client loading</h3></article></div></div></section>
 """,
     },
     {
@@ -406,10 +405,11 @@ def footer() -> str:
 def page_hero(page: dict[str, str]) -> str:
     if not page.get("h1"):
         return ""
+    lede = f'<p>{html.escape(page["lede"])}</p>' if page["lede"] else ""
     return f"""
 <section class="page-hero" style="--page-image:url('/assets/images/ricefarm/{html.escape(page["image"])}')"><div class="container">
   <div class="breadcrumbs"><a href="/">Home</a><span>{html.escape(page["nav"] or page["title"])}</span></div>
-  <p class="eyebrow">{html.escape(page["kicker"])}</p><h1>{html.escape(page["h1"])}</h1><p>{html.escape(page["lede"])}</p>
+  <p class="eyebrow">{html.escape(page["kicker"])}</p><h1>{html.escape(page["h1"])}</h1>{lede}
 </div></section>"""
 
 
