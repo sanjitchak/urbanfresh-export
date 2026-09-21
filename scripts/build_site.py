@@ -87,6 +87,17 @@ PAGES: list[dict[str, str]] = [
         "body": f"""
 <section class="section surface"><div class="container proof-gallery"><h2 class="section-title">Factory video</h2><div class="proof-video proof-video-landscape"><wistia-player media-id="{WISTIA_MEDIA_ID}" aspect="1.7777777777777777"></wistia-player></div></div></section>
 <section class="section"><div class="container proof-gallery"><h2 class="section-title">Client loading videos</h2><div class="proof-grid"><article class="proof-card"><div class="proof-video proof-video-landscape"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[0]}" aspect="1.7777777777777777"></wistia-player></div><h3>10 MT client loading</h3></article><article class="proof-card"><div class="proof-video proof-video-landscape"><wistia-player media-id="{CLIENT_PROOF_MEDIA_IDS[1]}" aspect="1.7777777777777777"></wistia-player></div><h3>125 MT client loading</h3></article></div></div></section>
+<section class="section surface"><div class="container"><h2 class="section-title">Turn the factory videos into a buying brief</h2>
+<p class="section-lede">UrbanFresh serves international rice buyers from the Rajesh Industries mill in Karnal, India. After viewing the factory and client-loading footage, use the guides below to prepare a specification for the buyer desk. A clear brief connects the rice, destination and packing questions before an offer is reviewed.</p>
+<h3>Define the product and buyer-brand requirement</h3>
+<p class="section-lede">Start with the <a href="1121-basmati-rice.html">1121 basmati specification guide</a> or the variety relevant to your enquiry. State the processing style, quantity and quality parameters your buyer needs. For a retail programme, the <a href="private-label-rice.html">private-label rice guide</a> helps organise pack size, artwork and labelling questions. Send your brand brief with the product requirement so both can be reviewed together.</p>
+<h3>Plan packing and container loading</h3>
+<p class="section-lede">Read the <a href="packing-container-logistics.html">rice packing and container-loading guide</a> when preparing shipment questions. Include your destination, packing preference and target shipment window. The 10 MT and 125 MT labels identify the client-loading footage above; the packing and loading plan for your own order is reviewed against its specific brief.</p>
+<h3>Prepare documentation and testing questions</h3>
+<p class="section-lede">Use the <a href="export-documents.html">rice export documentation checklist</a> to organise the records your buyer or destination requires. For residue-sensitive markets, review the <a href="quality-residue-testing.html">quality and residue-testing guide</a> and state the requested test scope and evidence. Documentation and quality questions should accompany the product specification, allowing the buyer desk to review them before commercial terms are agreed.</p>
+<h3>Send the brief for mill-side review</h3>
+<p class="section-lede">The <a href="about-mill-infrastructure.html">mill infrastructure page</a> provides additional production context. When ready, send your company details, destination, rice specification, volume, pack and timing through the <a href="contact.html#rfq">international RFQ form</a>. Include any buyer-specific documents or artwork requirements in the enquiry. The team reviews availability, packing and shipment requirements against that brief.</p>
+</div></section>
 """,
     },
     {

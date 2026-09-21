@@ -23,6 +23,22 @@
 
 ## Change history
 
+### 2026-09-21 — Proof-page content repair
+
+- Added a source-grounded buyer checklist below the three existing videos on
+  `client-proof.html`, addressing the low-text-content audit finding while
+  preserving the video-first layout and equal-size client-loading players.
+- Kept domestic and export copy distinct. Export links now guide buyers to the
+  existing private-label, packing, documentation and residue-testing pages.
+- Changed only the proof-page generator/output and its sitemap modification
+  date. No unsupported shipment, capacity, certification or commercial claim
+  was added. Ranking recovery and external audit-score recovery are unverified.
+- Both SEO audits and all 52 domestic / 58 export tests passed. Rendered checks
+  at 390 and 1440 px found no horizontal overflow and retained three players.
+  The user approved publication and the existing discovery workflow.
+  Release verification is recorded in the dated external SEO snapshot.
+
+
 ### 2026-09-12 — Client proof page simplified
 
 - Removed the explanatory intro, hosting note, confidentiality paragraph and
