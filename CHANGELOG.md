@@ -18,10 +18,30 @@
 
 ## Open items
 
+- Ubersuggest project is inactive (`user_inactivity`); October 5 API reads
+  returned stale September rankings. Account-owner review is needed to restore
+  fresh tracking; stored estimates cannot support an October content change.
 - Performance evidence remains sparse. Wait for a full comparable 28-day
   period before making intent-led content changes beyond this technical repair.
 
 ## Change history
+
+### 2026-10-05 — Monthly SEO review retained existing pages
+
+- Decision: `No change - insufficient evidence`. GSC final September 5–October 2 versus August 8–September 4: 47/37 query-visible impressions, zero clicks. Exact private label rice manufacturer / private-label-rice.html / UK DESKTOP: 3/3 impressions, zero clicks, position 82/82; US DESKTOP 1/1 impressions, position 87/90; UAE DESKTOP 1/no prior row, position 85. US desktop 4/7, UK desktop 12/10, UAE desktop 8/6 and mobile 1/no prior row. Non-India desktop 25/27 and mobile 4/3; India desktop 2/4 and mobile 16/3. No tablet rows.
+- Prior monthly review made no content change; retain existing pages. Sparse private-label and documentation/packing movements do not support a new experiment or rollback. Both full 28-day windows are available, but no page/query meets the 100-impression threshold. September 21 proof-page repair has only 12 days within the final-data window and no reported query rows, so its performance is not yet evaluable. Qualified leads/RFQs are unavailable, not zero.
+- Stored US 1/10, UK 3/10, UAE 2/10 top 100 through September 26; audit 100/100 on 11 pages. Ubersuggest API reads succeeded, but projects are inactive due to user inactivity and rankings are stale; do not claim October refresh. Restore project freshness through account-owner review; this run
+  did not reactivate projects, change settings or trigger audits.
+- Appended exactly one domain/date row to `seo/monthly-log.csv` and saved
+  separate first-party dimensions, monthly review and `external-research.md`
+  under ignored `reports/seo-improver/2026-10-05/`.
+- Reviewed deployed SHA `e4a1d500ec229b2d2b8ded7949a9599348b9b9cf`. No page, claim, layout,
+  navigation, form, URL or discovery payload changed. Generator, 12-page
+  audit, all 58 tests and `git diff --check` passed without generated drift.
+  A separate `Monthly SEO:` reporting commit is prepared for publication.
+  Final validation, push, workflow and live results are recorded in the dated
+  ignored `release-verification.md`; unchanged discovery files are verified
+  without resubmission. Next monthly review: 2026-11-02.
 
 ### 2026-09-21 — Proof-page content repair
 
